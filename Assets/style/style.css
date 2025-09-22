@@ -298,3 +298,42 @@ body {
   font-size: 22px;
   color: white;
 }
+
+.reason-section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 30px;
+}
+
+.reason-section .reason-text {
+  width: 30%;
+  min-width: 250px;
+  text-align: center;
+  direction: rtl;
+}
+.manage-text-position {
+  width: 100%;
+}
+
+.reason-section h2 {
+  color: white;
+  margin-bottom: 12px;
+  margin-right: -50px;
+  text-align: center;
+  font-size: 25px;
+}
+
+.reason-section p {
+  width: 50%;
+  margin: 0 30%;
+  text-align: center;
+  direction: rtl;
+  color: white;
+}
+@media (max-width: 900px) {
+  .reason-section {
+    display: none;
+  }
+}
