@@ -320,15 +320,15 @@ body {
 .reason-section h2 {
   color: white;
   margin-bottom: 12px;
-  margin-right: -50px;
+  margin-right: -20px;
   text-align: center;
-  font-size: 25px;
+  font-size: clamp(18px, 1.9vw, 30px);
 }
 
 .reason-section p {
   width: 50%;
-  margin: 0 30%;
-  text-align: center;
+  margin: 0 29%;
+  text-align: right;
   direction: rtl;
   color: white;
 }
