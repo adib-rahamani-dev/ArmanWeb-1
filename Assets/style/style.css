@@ -304,17 +304,17 @@ body {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  gap: 30px;
+  gap: -80px;
 }
 
 .reason-section .reason-text {
-  width: 30%;
+  width: 28%;
   min-width: 250px;
   text-align: center;
   direction: rtl;
 }
 .manage-text-position {
-  width: 100%;
+  width: 105%;
 }
 
 .reason-section h2 {
@@ -339,3 +339,69 @@ body {
 }
 
 /*  baner 2  */
+.baner2-position {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.baner2-section {
+  max-width: 1300px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5%;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+}
+
+.baner2-section > div {
+  flex: 0 0 45%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.baner2-section img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+@media (min-width: 1300px) {
+  .baner2-section {
+    gap: 10%;
+  }
+  .baner2-section > div {
+    flex: 0 0 45%;
+  }
+
+  .baner2-section img {
+    width: 120%;
+    max-width: 130%;
+  }
+}
+
+@media (max-width: 992px) {
+  .baner2-section > div {
+    flex: 0 0 48%;
+  }
+  .baner2-section img {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .baner2-section > div {
+    flex: 0 0 100%;
+  }
+  .baner2-section img {
+    width: 90%;
+    max-width: 90%;
+  }
+}
