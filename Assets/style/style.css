@@ -405,3 +405,64 @@ body {
     max-width: 90%;
   }
 }
+/*  product */
+.product-header {
+  display: flex;
+  /* Controls horizontal alignment - flex-end pushes content to the right */
+  justify-content: flex-end;
+  align-items: center;
+  gap: 15px;
+  padding: 20px;
+  max-width: 1300px;
+  width: 100%;
+  /* Centers the container but content inside aligns right due to justify-content */
+  margin: 0 auto;
+  box-sizing: border-box;
+  flex-wrap: wrap;
+  /* Additional right margin to push content further right */
+  margin-right: 50px;
+}
+
+.text-container {
+  display: flex;
+  flex-direction: column;
+  /* Right text alignment for RTL text */
+  text-align: right;
+  gap: 2px;
+}
+
+.persian-text {
+  font-size: clamp(18px, 2.2vw, 26px);
+  color: #fff;
+  margin: 0;
+  font-weight: bold;
+}
+
+.english-text {
+  font-size: clamp(12px, 1.5vw, 16px);
+  color: #ddd;
+  margin: 0;
+  opacity: 0.8;
+}
+
+.icon {
+  font-size: clamp(20px, 2.5vw, 32px);
+  color: #fff;
+  background-color: #e5002b;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 4px 12px rgba(229, 0, 43, 0.3);
+  transition: transform 0.2s;
+}
+
+.icon:hover {
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .product-header {
+
+    margin-right: 20px;
+    justify-content: center;
+  }
+}
