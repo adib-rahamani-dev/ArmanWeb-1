@@ -408,25 +408,21 @@ body {
 /*  product */
 .product-header {
   display: flex;
-  /* Controls horizontal alignment - flex-end pushes content to the right */
   justify-content: flex-end;
   align-items: center;
   gap: 15px;
   padding: 20px;
   max-width: 1300px;
   width: 100%;
-  /* Centers the container but content inside aligns right due to justify-content */
   margin: 0 auto;
   box-sizing: border-box;
   flex-wrap: wrap;
-  /* Additional right margin to push content further right */
   margin-right: 50px;
 }
 
 .text-container {
   display: flex;
   flex-direction: column;
-  /* Right text alignment for RTL text */
   text-align: right;
   gap: 2px;
 }
@@ -465,4 +461,72 @@ body {
     margin-right: 20px;
     justify-content: center;
   }
+}
+/*  *******  */
+.product-section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: relative; 
+  padding: 20px 0;
+  box-sizing: border-box;
+}
+
+.product-background {
+  max-width: 1250px;
+  width: 90%;
+  height: 500px;
+  background-color: #4d4d4d;
+  border-radius: 30px;
+
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 20px;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+.product-background::-webkit-scrollbar { display: none; } 
+.product-background { -ms-overflow-style: none; scrollbar-width: none; } 
+
+.product-card-box {
+  flex: 0 0 auto;
+  width: 300px; 
+  height: 400px;
+  background-color: #2b2b2b;
+  border-radius: 20px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+}
+
+.scroll-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  border: none;
+  background: rgba(0,0,0,0.45);
+  color: #fff;
+  width: 44px;
+  height: 80px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .18s, transform .12s;
+  user-select: none;
+}
+
+.scroll-btn.prev { left: calc(5% - 10px); } 
+.scroll-btn.next { right: calc(5% - 10px); }
+
+.scroll-btn:hover,
+.scroll-btn:focus {
+  background: rgba(0,0,0,0.65);
+  transform: translateY(-50%) scale(1.02);
+  outline: none;
 }
