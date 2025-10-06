@@ -1,41 +1,41 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fa" dir="rtl">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>قیمت با خط مورب</title>
-  <style>
-    body{
-      font-family: Tahoma, sans-serif;
-      background:#0f1724;
-      color:#fff;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      min-height:100vh;
-    }
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>قیمت با خط مورب</title>
+    <style>
+      body {
+        font-family: Tahoma, sans-serif;
+        background: #0f1724;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+      }
 
-    .strike{
-      position:relative;
-      display:inline-block;
-      font-size:24px;
-      color:#ccc;
-      padding:6px 12px;
-    }
+      .strike {
+        position: relative;
+        display: inline-block;
+        font-size: 24px;
+        color: #ccc;
+        padding: 6px 12px;
+      }
 
-    .strike::after{
-      content:"";
-      position:absolute;
-      top:50%;
-      left:-5%;
-      width:110%;
-      height:3px;
-      background:red;
-      transform: rotate(-12deg);
-    }
-  </style>
-</head>
-<body>
-  <span class="strike">200,000 تومان</span>
-</body>
+      .strike::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: -5%;
+        width: 110%;
+        height: 3px;
+        background: red;
+        transform: rotate(-12deg);
+      }
+    </style>
+  </head>
+  <body>
+    <span class="strike">200,000 تومان</span>
+  </body>
 </html>
