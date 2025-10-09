@@ -1,12 +1,17 @@
 @font-face {
-  font-family: vazir;
-  src: url(../Font/Vazir.woff);
+  font-family: yekan;
+  src: url(../font/Qs_Iranyekan\ medium.ttf);
+}
+
+@font-face {
+  font-family: yekan-thin;
+  src: url(../font/Qs_Iranyekan\ thin.ttf);
 }
 
 body {
   margin: 0;
   background-color: #2b2b2b;
-  font-family: vazir, sans-serif;
+  font-family: yekan, sans-serif;
 }
 
 /* navbar */
@@ -76,7 +81,7 @@ body {
 
 .register-btn a {
   font-size: 13px;
-  font-family: vazir;
+  font-family: yekan;
 }
 
 .register-btn:hover {
@@ -550,14 +555,14 @@ body {
   color: #4d4d4d;
   text-align: right;
   margin-right: 20px;
-  font-family: vazir;
+  font-family: yekan;
 }
 
 .product-card-box h3 {
   color: white;
   text-align: right;
   direction: rtl;
-  font-family: vazir;
+  font-family: yekan;
   padding: 20px;
 }
 .new-price {
@@ -595,7 +600,7 @@ body {
 .show-detail-btn {
   background-color: #2b2b2b;
   color: white;
-  font-family: vazir;
+  font-family: yekan;
   display: block;
   margin: -17px auto 0;
   text-align: center;
@@ -654,7 +659,7 @@ body {
 .lastest-card-box {
   flex: 0 0 auto;
   width: 300px;
-  height: 400px;
+  height: 350px;
   background-color: #4d4d4d;
   border-radius: 20px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
@@ -668,10 +673,69 @@ body {
   border-radius: 30px;
 }
 
-.lastest-card-box h3 {
+.lastest-card-box h4 {
   color: white;
   text-align: right;
   direction: rtl;
-  font-family: vazir;
+  font-family: yekan;
   padding: 20px;
+}
+
+.lastest-card-box hr {
+   border: 1px dashed #757575;
+}
+
+.lastest-card-price-unit-1,
+.lastest-card-price-unit-2 {
+  color: #8d8d8d;
+  margin: -10px;
+  position: relative;
+  top: 100px;
+  left: 20px;
+  font-size: 14px;
+}
+
+.lastest-card-new-price {
+  color: #e9e7e7;
+  position: relative;
+  top: 62px;
+  left: 48px;
+  font-family: yekan;
+}
+
+.lastest-card-old-price {
+  font-size: 16px;
+  color: #868686;
+  position: relative;
+  left: 8px;
+  bottom: 20px;
+}
+
+.lastest-card-old-price::after {
+  content: "";
+  position: absolute;
+  top: 41%;
+  left: -5%;
+  width: 110%;
+  height: 1.5px;
+  background-color: #868686;
+  transform: rotate(0deg);
+}
+
+.lastest-card-sold {
+  color: white;
+  position: relative;
+  bottom: 36px;
+  left: 243px;
+  font-family: yekan-thin;
+  font-size: 16px;
+}
+
+.lastest-card-satisfaction {
+  color: white;
+  position: relative;
+  bottom: 79px;
+  left: 183px;
+  font-family: yekan-thin;
+  font-size: 16px;
 }
