@@ -739,3 +739,33 @@ body {
   font-family: yekan-thin;
   font-size: 16px;
 }
+
+.coming-soon {
+  color: #868686;
+  text-align: center;
+  justify-content: center;
+}
+
+/*  footer  */
+footer {
+  display: flex;
+  justify-content: center;
+}
+.up-footer {
+  max-width: 1350px;
+  width: 95%;
+  background-color: #454545;
+  height: 150px;
+  border-radius: 30px;
+  display: flex;
+  justify-content: right;
+}
+
+.contact-us-text {
+  color: white;
+  font-size: 24px;
+  margin-top: 4%;
+  font-family: yekan;
+  margin-right: 50px;
+  
+}
