@@ -682,7 +682,7 @@ body {
 }
 
 .lastest-card-box hr {
-   border: 1px dashed #757575;
+  border: 1px dashed #757575;
 }
 
 .lastest-card-price-unit-1,
@@ -747,10 +747,14 @@ body {
 }
 
 /*  footer  */
+
 footer {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
 }
+
 .up-footer {
   max-width: 1350px;
   width: 95%;
@@ -767,5 +771,49 @@ footer {
   margin-top: 4%;
   font-family: yekan;
   margin-right: 50px;
-  
+}
+
+.icon-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 24px;
+  width: 95%;
+  max-width: 1350px;
+  box-sizing: border-box;
+}
+
+.icon-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  font-family: yekan;
+  font-size: 18px;
+  box-sizing: border-box;
+  flex: 0 0 180px;
+  padding: 8px;
+}
+
+.icon {
+  font-size: clamp(20px, 4.5vw, 32px);
+  color: #fff;
+  background-color: #e5002b;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 4px 12px rgba(229, 0, 43, 0.3);
+  transition: transform 0.2s;
+}
+
+@media (max-width: 900px) {
+  .icon-box {
+    flex: 0 0 45%;
+  }
+}
+
+@media (max-width: 500px) {
+  .icon-box {
+    flex: 0 0 90%;
+  }
 }
