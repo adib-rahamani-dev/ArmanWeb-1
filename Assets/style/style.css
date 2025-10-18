@@ -817,3 +817,55 @@ footer {
     flex: 0 0 90%;
   }
 }
+
+.down-footer {
+  max-width: 1350px;
+  width: 95%;
+  height: 300px;
+  border-radius: 30px;
+  background-color: #454545;
+  display: flex;
+  justify-content: right;
+  position: relative;
+}
+
+.footer-title {
+  color: white;
+  font-size: 24px;
+  opacity: 90%;
+  position: relative;
+  top: 15px;
+  right: -150px;
+
+}
+
+.information {
+  margin-top: 3.9rem;
+  margin-right: 70px;
+  color: white;
+  width: 350px;
+  text-align: right;
+  direction: rtl;
+  text-align: justify;
+  font-size: 17px;
+  font-family: yekan;
+}
+
+.down-footer hr {
+  position: absolute;
+  bottom: 60px;
+  right: 5.3%;
+  width: 26%;
+  border: none;
+  border-top: 1px solid #ffffff;
+  opacity: 60%;
+}
+
+.service-title {
+  color: white;
+  font-size: 16px;
+  opacity: 90%;
+  margin-right: 35px;
+  position: relative;
+  top: -280px;
+}
