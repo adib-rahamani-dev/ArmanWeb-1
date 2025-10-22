@@ -1,0 +1,47 @@
+.information-section {
+  max-width: 1350px;
+  width: 65%;
+  background-color: #454545;
+  height: 400px;
+  border-radius: 30px;
+}
+
+.product-name {
+  color: white;
+  opacity: 85%;
+  text-align: right;
+  margin-right: 50px;
+  position: relative;
+  top: 25px;
+}
+
+.short-info {
+  color: white;
+  opacity: 80%;
+  text-align: right;
+  margin-right: 50px;
+  font-size: 14px;
+}
+
+.price {
+  background-color: white;
+  opacity: 85%;
+  width: 180px;
+  height: 40px;
+  border-radius: 10px;
+  margin-left: 77.1%;
+}
+
+.add-to-cart {
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  padding: 10px 20px;
+  white-space: pre-wrap;
+  background-color: #e5002b;
+  color: white;
+  font-family: yekan;
+  font-size: 12px;
+  margin-left: 81%;
+  margin-top: 20px;
+}
