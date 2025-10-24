@@ -20,7 +20,7 @@
   opacity: 80%;
   text-align: right;
   margin-right: 50px;
-  font-size: 14px;
+  font-size: 17px;
 }
 
 .price {
@@ -29,7 +29,17 @@
   width: 180px;
   height: 40px;
   border-radius: 10px;
-  margin-left: 77.1%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 50px;
+  margin-top: 15px;
+  margin-left: auto;
+}
+
+.title {
+  font-size: 14px;
+  margin-left: 70%;
 }
 
 .add-to-cart {
@@ -44,4 +54,10 @@
   font-size: 12px;
   margin-left: 81%;
   margin-top: 20px;
+}
+
+.add-action {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 50px;
 }
