@@ -1,7 +1,8 @@
-<html lang="fa">
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>وبسایت آرمان رجایی</title>
     <link rel="stylesheet" href="Assets/style/sample_work.css" />
     <link rel="stylesheet" href="Assets/style/main.css" />
@@ -11,26 +12,29 @@
     />
   </head>
   <body>
-    <div style="display: flex; justify-content: center; align-items: center">
-      <div class="information-section">
-        <h1 class="product-name">موضوع این محصول</h1>
-        <img src="" alt="عکس محصول" />
-        <p class="short-info">مشخصات و اطلاعات راجب</p>
-        <p class="short-info">مشخصات و اطلاعات راجب</p>
-        <p class="short-info">مشخصات و اطلاعات راجب</p>
-        <div class="price">
-          <h4 class="title">: قیمت</h4>
-          <span class="old-price"> 190،000 </span>
-          <p class="new-price">190،000</p>
-          <div class="price-unit">
-            <p>تومان</p>
+    <div class="page-wrap">
+      <section class="information-section">
+        <div class="content">
+          <h1 class="product-name">موضوع این محصول</h1>
+          <p class="short-info">مشخصات و اطلاعات راجب</p>
+          <p class="short-info">مشخصات و اطلاعات راجب</p>
+          <p class="short-info">مشخصات و اطلاعات راجب</p>
+          <div class="price-and-actions">
+            <div class="price">
+              <h4 class="title">قیمت:</h4>
+              <span class="old-price">190,000</span>
+              <p class="new-price">150,000</p>
+              <div class="price-unit"><p>تومان</p></div>
+            </div>
+            <div class="add-action">
+              <button class="add-to-cart">افزودن به سبد خرید</button>
+            </div>
           </div>
         </div>
-        <div class="add-action">
-          <button class="add-to-cart">افزودن به سبد خرید</button>
-          <!-- <button class="save-post">آیکون</button> -->
+        <div class="image-wrapper">
+          <img src="assets/img/baner2.png" alt="عکس محصول" />
         </div>
-      </div>
+      </section>
     </div>
   </body>
 </html>
