@@ -16,10 +16,12 @@
   margin: 0;
   padding: 0;
 }
+
 html,
 body {
   height: 100%;
 }
+
 body {
   font-family: "Yekan", system-ui, sans-serif;
   background: #f3f3f3;
@@ -27,7 +29,6 @@ body {
   justify-content: center;
   align-items: flex-start;
   padding: 36px 18px;
-  direction: rtl;
 }
 
 .page-wrap {
@@ -248,12 +249,10 @@ body {
   gap: 6px;
   font-size: 15px;
   opacity: 0.9;
-  
 }
 
 .info-item i {
   font-size: 28px;
-  color: var(--accent);
   color: #ffffff;
 }
 
@@ -262,7 +261,6 @@ body {
   height: 50px;
   background: #ffffff5b;
   border-radius: 10px;
-  /* border: 2px dashed rgba(255,255,255,0.5);  Dot border   */
 }
 
 .comments-and-description {
@@ -271,26 +269,54 @@ body {
   background-color: var(--card-bg);
   border-radius: var(--card-radius);
   margin-top: 20px;
-  padding: 18px 26px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+  padding: 20px 26px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
   color: var(--text-white);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-.description,
-.comments-btn {
-  gap: 5px;
-  border-radius: 15px;
+.tabs-header {
+  display: flex;
+  justify-content: flex-start;
+  gap: 12px;
+}
+
+.tab-btn {
+  min-width: 120px;
+  padding: 12px 24px;
+  border-radius: 16px;
   border: none;
   cursor: pointer;
-  padding: 10px 15px;
   background-color: var(--text-white);
   color: var(--card-bg);
   font-family: "Yekan", system-ui, sans-serif;
   font-size: 15px;
-  width: initial;
-  height: initial;
-  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  font-weight: 600;
+  transition: all 0.2s ease;  
+}
+
+.tab-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.tab-btn.active {
+  background-color: var(--text-white);
+  color: var(--card-bg);
+}
+
+
+.tab-content {
+  animation: fadeIn 0.4s ease;
+}
+
+.tab-content p {
+  line-height: 2;
+  font-size: 15px;
+  text-align: justify;
+  margin: 0;
+  padding: 10px 0;
+  opacity: 0.95;
 }

@@ -5,14 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>وبسایت آرمان رجایی</title>
 
-    <link rel="stylesheet" href="Assets/style/sample_work.css" />
-    <link rel="stylesheet" href="Assets/style/main.css" />
+    <link rel="stylesheet" href="../Assets/style/sample_work.css" />
+    <link rel="stylesheet" href="../Assets/style/main.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
   </head>
-
   <body>
     <div class="page-wrap">
       <section class="information-section">
@@ -34,7 +33,7 @@
           </div>
         </div>
         <div class="image-wrapper">
-          <img src="assets/img/baner2.png" alt="عکس محصول" />
+          <img src="../assets/img/baner2.png" alt="عکس محصول" />
         </div>
       </section>
       <div class="information">
@@ -54,21 +53,27 @@
         </div>
       </div>
       <div class="comments-and-description">
-        <div class="long-description">
-          <button class="description">توضیحات</button>
+        <div class="tabs-header">
+          <button class="tab-btn active">توضیحات</button>
+          <button class="tab-btn" onclick="showAlert()">نظرات</button>
         </div>
-        <div class="comments">
-          <button class="comments-btn">نظرات</button>
-        </div>
-        <section class="show-long-description">
+        <section class="tab-content show-long-description">
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. At vero
-            quae labore beatae sequi accusantium aliquam explicabo fugiat quasi
-            quis exercitationem, totam atque hic dignissimos dolorum voluptatum
-            quod nihil numquam?
+            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
+            استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در
+            ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و
+            کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
           </p>
         </section>
       </div>
+      <div class="information">
+        
+      </div>
     </div>
+    <script>
+      function showAlert() {
+        alert("این بخش  به زودی فعال میشود")
+      }
+    </script>
   </body>
 </html>
