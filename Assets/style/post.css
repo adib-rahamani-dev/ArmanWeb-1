@@ -1,0 +1,44 @@
+:root {
+  --card-bg: #454545;
+  --card-radius: 20px;
+  --gap: 22px;
+  --text-white: #ffffff;
+  --muted: #9a9a9a;
+  --accent: #e5002b;
+  --container-max: 1100px;
+  --image-w: 360px;
+  --price-w: 260px;
+  --button-w: 260px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: "Yekan", system-ui, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 36px 18px;
+}
+
+.post-section {
+  width: 100%;
+  max-width: var(--container-max);
+  background-color: var(--card-bg);
+  border-radius: var(--card-radius);
+  display: flex;
+  gap: var(--gap);
+  padding: 26px;
+  align-items: flex-start;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  min-height: 460px;
+}

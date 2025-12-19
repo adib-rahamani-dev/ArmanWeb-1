@@ -163,9 +163,10 @@ body {
 
 .add-action {
   display: flex;
-  justify-content: flex-end;
-  width: 100%;
-  padding-right: 10px;
+  justify-content: space-between;
+  align-items: center;
+  width: var(--price-w);
+  gap: 10px;
 }
 
 .add-to-cart {
@@ -177,12 +178,33 @@ body {
   color: #fff;
   font-family: "Yekan", system-ui, sans-serif;
   font-size: 15px;
-  width: var(--button-w);
-  max-width: 100%;
+  flex: 1;
   transition: transform 0.12s ease, box-shadow 0.12s ease;
 }
 
 .add-to-cart:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+.add-to-favorites {
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  padding: 12px;
+  background-color: #4E5950;
+  color: #fff;
+  font-family: "Yekan", system-ui, sans-serif;
+  font-size: 20px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.add-to-favorites:hover {
   transform: translateY(-3px);
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
 }
@@ -193,6 +215,16 @@ body {
     --price-w: 100%;
     --button-w: 100%;
   }
+  
+  .add-action {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .add-to-cart {
+    max-width: calc(100% - 68px);
+  }
+
   .information-section {
     flex-direction: column-reverse;
     align-items: center;
@@ -294,7 +326,7 @@ body {
   font-family: "Yekan", system-ui, sans-serif;
   font-size: 15px;
   font-weight: 600;
-  transition: all 0.2s ease;  
+  transition: all 0.2s ease;
 }
 
 .tab-btn:hover {
@@ -307,7 +339,6 @@ body {
   color: var(--card-bg);
 }
 
-
 .tab-content {
   animation: fadeIn 0.4s ease;
 }
@@ -319,4 +350,40 @@ body {
   margin: 0;
   padding: 10px 0;
   opacity: 0.95;
+}
+.information {
+  width: 100%;
+  max-width: var(--container-max);
+  background-color: var(--card-bg);
+  border-radius: var(--card-radius);
+  margin-top: 20px;
+  padding: 18px 26px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  color: var(--text-white);
+  flex-wrap: wrap; /* Added for better mobile view */
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font-size: 15px;
+  opacity: 0.9;
+  margin: 10px 0; /* Added for spacing on wrap */
+}
+
+.info-item i {
+  font-size: 28px;
+  color: #ffffff;
+}
+
+.info-separator {
+  width: 3px;
+  height: 50px;
+  background: #ffffff5b;
+  border-radius: 10px;
 }
