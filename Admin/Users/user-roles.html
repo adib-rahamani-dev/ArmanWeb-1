@@ -1,0 +1,1710 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مدیریت نقش‌ها - پنل مدیریت پیشرفته</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/Admin/style.css">
+    <style>
+        /* استایل‌های اختصاصی صفحه نقش‌ها */
+        .roles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .role-card {
+            background: var(--dark-surface);
+            border: 1px solid var(--dark-border);
+            border-radius: var(--border-radius-lg);
+            padding: 24px;
+            transition: all var(--transition-speed);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .role-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary-color);
+            transition: width var(--transition-speed);
+        }
+
+        .role-card.admin::before { background: linear-gradient(135deg, #f59e0b, #ef4444); }
+        .role-card.editor::before { background: linear-gradient(135deg, #3b82f6, #6366f1); }
+        .role-card.author::before { background: linear-gradient(135deg, #10b981, #34d399); }
+        .role-card.subscriber::before { background: linear-gradient(135deg, #64748b, #94a3b8); }
+
+        .role-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .role-card:hover::before {
+            width: 100%;
+            opacity: 0.05;
+        }
+
+        .role-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .role-icon-wrapper {
+            width: 60px;
+            height: 60px;
+            border-radius: var(--border-radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            flex-shrink: 0;
+            transition: all var(--transition-speed);
+        }
+
+        .role-card:hover .role-icon-wrapper {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .role-card.admin .role-icon-wrapper { background: linear-gradient(135deg, #f59e0b, #ef4444); }
+        .role-card.editor .role-icon-wrapper { background: linear-gradient(135deg, #3b82f6, #6366f1); }
+        .role-card.author .role-icon-wrapper { background: linear-gradient(135deg, #10b981, #34d399); }
+        .role-card.subscriber .role-icon-wrapper { background: linear-gradient(135deg, #64748b, #94a3b8); }
+        
+        .role-card-actions {
+            display: flex;
+            gap: 4px;
+        }
+
+        .role-card-actions .action-btn {
+            background: var(--dark-surface-light);
+            border: 1px solid var(--dark-border);
+            color: var(--dark-text-muted);
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all var(--transition-speed);
+        }
+
+        .role-card-actions .action-btn:hover {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .role-card-body {
+            flex-grow: 1;
+        }
+
+        .role-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--dark-text);
+            margin-bottom: 8px;
+        }
+
+        .role-description {
+            font-size: 14px;
+            color: var(--dark-text-secondary);
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+
+        .role-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 13px;
+        }
+
+        .role-user-count {
+            color: var(--dark-text-muted);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .role-user-count i {
+            color: var(--primary-color);
+        }
+
+        .role-status-badge {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .role-status-badge.system {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--warning-color);
+        }
+
+        .role-status-badge.custom {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--success-color);
+        }
+
+        /* Permissions Modal Styles */
+        .permissions-grid {
+            display: grid;
+            gap: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 8px;
+        }
+
+        .permission-group {
+            background: var(--dark-surface-light);
+            border: 1px solid var(--dark-border);
+            border-radius: var(--border-radius);
+            padding: 16px;
+            transition: all var(--transition-speed);
+        }
+
+        .permission-group:hover {
+            background: var(--dark-surface);
+            transform: translateX(-3px);
+        }
+
+        .permission-group-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--dark-text);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .permission-group-title i {
+            color: var(--primary-color);
+        }
+
+        .permission-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .permission-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 6px;
+            transition: all var(--transition-speed);
+        }
+
+        .permission-item:hover {
+            background: var(--dark-surface);
+        }
+
+        .permission-checkbox {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary-color);
+            cursor: pointer;
+        }
+
+        .permission-label {
+            font-size: 14px;
+            color: var(--dark-text);
+            cursor: pointer;
+            user-select: none;
+            flex-grow: 1;
+        }
+
+        .permission-description {
+            font-size: 12px;
+            color: var(--dark-text-muted);
+            margin-right: 28px;
+        }
+
+        /* Icon Picker */
+        .icon-picker-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 8px;
+            max-height: 150px;
+            overflow-y: auto;
+            padding: 8px;
+            border: 1px solid var(--dark-border);
+            border-radius: var(--border-radius);
+            background: var(--dark-surface-light);
+        }
+
+        .icon-picker-item {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all var(--transition-speed);
+            color: var(--dark-text-secondary);
+            border: 1px solid transparent;
+        }
+
+        .icon-picker-item:hover {
+            background: var(--dark-surface);
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+            transform: scale(1.1);
+        }
+
+        .icon-picker-item.selected {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+            transform: scale(1.1);
+        }
+
+        /* Bulk Actions */
+        .bulk-actions-bar {
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: var(--border-radius);
+            margin-bottom: 24px;
+            animation: slideDown 0.3s ease;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .bulk-actions-bar.show {
+            display: flex;
+        }
+
+        .bulk-actions-info {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .bulk-actions-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .bulk-action-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all var(--transition-speed);
+        }
+
+        .bulk-action-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-1px);
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Enhanced Welcome Section */
+        .welcome-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-section::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            animation: float 20s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-30px, -30px) rotate(180deg); }
+        }
+
+        .welcome-content, .welcome-actions {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Enhanced Buttons */
+        .btn {
+            position: relative;
+            overflow: hidden;
+            transition: all var(--transition-speed);
+        }
+
+        .btn::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 0;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: width var(--transition-speed);
+        }
+
+        .btn:hover::before {
+            width: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Enhanced Stats Cards */
+        .stat-card {
+            position: relative;
+            overflow: hidden;
+            transition: all var(--transition-speed);
+        }
+
+        .stat-card::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform var(--transition-speed);
+        }
+
+        .stat-card:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Enhanced Modals */
+        .modal-content {
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--dark-border);
+            transform: scale(0.9);
+            opacity: 0;
+            transition: all var(--transition-speed);
+        }
+
+        .modal.show .modal-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        /* Form Enhancements */
+        .form-input {
+            transition: all var(--transition-speed);
+        }
+
+        .form-input:focus {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(99, 102, 241, 0.1);
+        }
+
+        /* Checkbox Enhancements */
+        .checkbox-custom {
+            position: relative;
+            transition: all var(--transition-speed);
+        }
+
+        .checkbox-label:hover .checkbox-custom {
+            border-color: var(--primary-color);
+            transform: scale(1.05);
+        }
+
+        .checkbox-label input[type="checkbox"]:checked + .checkbox-custom {
+            animation: checkPulse 0.3s ease;
+        }
+
+        @keyframes checkPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        /* Filter Bar Enhancements */
+        .filter-select {
+            padding: 8px 12px;
+            background: var(--dark-surface-light);
+            border: 1px solid var(--dark-border);
+            border-radius: 6px;
+            color: var(--dark-text);
+            font-size: 14px;
+            transition: all var(--transition-speed);
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        /* Toast Enhancements */
+        .toast {
+            transform: translateX(100%);
+            transition: all var(--transition-speed);
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        @media (max-width: 768px) {
+            .roles-grid {
+                grid-template-columns: 1fr;
+            }
+            .icon-picker-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            .bulk-actions-bar {
+                flex-direction: column;
+                gap: 12px;
+                align-items: stretch;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loader">
+            <div class="loader-circle"></div>
+            <div class="loader-text">در حال بارگذاری...</div>
+        </div>
+    </div>
+
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="bg-shape shape-1"></div>
+        <div class="bg-shape shape-2"></div>
+        <div class="bg-shape shape-3"></div>
+        <div class="bg-shape shape-4"></div>
+        <div class="bg-shape shape-5"></div>
+        <div class="bg-shape shape-6"></div>
+    </div>
+
+    <div class="admin-container">
+        <!-- Sidebar (همان سایدبار اصلی) -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <span class="logo-text">آرمان رجایی</span>
+                </div>
+                <button class="toggle-btn" id="toggleSidebar" aria-label="تغییر وضعیت منو">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <div class="sidebar-search">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="جستجو در منو..." id="sidebarSearch">
+                </div>
+            </div>
+            
+            <nav class="sidebar-menu">
+                <div class="menu-section">
+                    <div class="menu-title">اصلی</div>
+                    <div class="menu-item">
+                        <a href="dashboard.html" class="menu-link" data-page="dashboard">
+                            <i class="fas fa-home menu-icon"></i>
+                            <span class="menu-text">داشبورد</span>
+                        </a>
+                    </div>
+                    <div class="menu-item">
+                        <a href="#" class="menu-link" data-page="analytics">
+                            <i class="fas fa-chart-line menu-icon"></i>
+                            <span class="menu-text">تحلیل‌ها</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="menu-section">
+                    <div class="menu-title">مدیریت</div>
+                    <div class="menu-item">
+                        <a href="#" class="menu-link" id="usersMenuToggle">
+                            <i class="fas fa-users menu-icon"></i>
+                            <span class="menu-text">کاربران</span>
+                            <span class="menu-badge pulse">127</span>
+                            <i class="fas fa-chevron-down menu-icon chevron"></i>
+                        </a>
+                        <div class="submenu" id="usersSubmenu">
+                            <a href="users.html" class="menu-link">
+                                <i class="fas fa-user-friends menu-icon"></i>
+                                <span class="menu-text">همه کاربران</span>
+                            </a>
+                            <a href="#" class="menu-link" id="addUserBtn">
+                                <i class="fas fa-user-plus menu-icon"></i>
+                                <span class="menu-text">افزودن کاربر</span>
+                            </a>
+                            <a href="user-roles.html" class="menu-link active">
+                                <i class="fas fa-user-shield menu-icon"></i>
+                                <span class="menu-text">نقش‌ها</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <a href="#" class="menu-link" id="productsMenuToggle">
+                            <i class="fas fa-box menu-icon"></i>
+                            <span class="menu-text">محصولات</span>
+                            <span class="menu-badge">456</span>
+                            <i class="fas fa-chevron-down menu-icon chevron"></i>
+                        </a>
+                        <div class="submenu" id="productsSubmenu">
+                            <a href="#" class="menu-link">
+                                <i class="fas fa-th-large menu-icon"></i>
+                                <span class="menu-text">همه محصولات</span>
+                            </a>
+                            <a href="#" class="menu-link">
+                                <i class="fas fa-plus-circle menu-icon"></i>
+                                <span class="menu-text">افزودن محصول</span>
+                            </a>
+                            <a href="#" class="menu-link">
+                                <i class="fas fa-tags menu-icon"></i>
+                                <span class="menu-text">دسته‌بندی‌ها</span>
+                            </a>
+                            <a href="#" class="menu-link">
+                                <i class="fas fa-warehouse menu-icon"></i>
+                                <span class="menu-text">موجودی</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <a href="#" class="menu-link" data-page="orders">
+                            <i class="fas fa-shopping-cart menu-icon"></i>
+                            <span class="menu-text">سفارشات</span>
+                            <span class="menu-badge pulse">89</span>
+                        </a>
+                    </div>
+                    <div class="menu-item">
+                        <a href="#" class="menu-link" data-page="finance">
+                            <i class="fas fa-wallet menu-icon"></i>
+                            <span class="menu-text">مالی</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="menu-section">
+                    <div class="menu-title">محتوا</div>
+                    <div class="menu-item">
+                        <a href="#" class="menu-link" id="blogMenuToggle">
+                            <i class="fas fa-blog menu-icon"></i>
+                            <span class="menu-text">وبلاگ</span>
+                            <i class="fas fa-chevron-down menu-icon chevron"></i>
+                        </a>
+                        <div class="submenu" id="blogSubmenu">
+                            <a href="#" class="menu-link">
+                                <i class="fas fa-newspaper menu-icon"></i>
+                                <span class="menu-text">همه مقالات</span>
+                            </a>
+                            <a href="#" class="menu-link">
+                                <i class="fas fa-pen menu-icon"></i>
+                                <span class="menu-text">نوشتن مقاله</span>
+                            </a>
+                            <a href="#" class="menu-link">
+                                <i class="fas fa-folder menu-icon"></i>
+                                <span class="menu-text">دسته‌بندی‌ها</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <a href="#" class="menu-link" data-page="media">
+                            <i class="fas fa-photo-video menu-icon"></i>
+                            <span class="menu-text">رسانه</span>
+                        </a>
+                    </div>
+                    <div class="menu-item">
+                        <a href="#" class="menu-link" data-page="comments">
+                            <i class="fas fa-comments menu-icon"></i>
+                            <span class="menu-text">نظرات</span>
+                            <span class="menu-badge pulse">23</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="menu-section">
+                    <div class="menu-title">ابزارها</div>
+                    <div class="menu-item">
+                        <a href="#" class="menu-link" data-page="reports">
+                            <i class="fas fa-file-alt menu-icon"></i>
+                            <span class="menu-text">گزارش‌ها</span>
+                        </a>
+                    </div>
+                    <div class="menu-item">
+                        <a href="#" class="menu-link" data-page="settings">
+                            <i class="fas fa-cog menu-icon"></i>
+                            <span class="menu-text">تنظیمات</span>
+                        </a>
+                    </div>
+                </div>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="user-card">
+                    <img src="https://picsum.photos/seed/adminuser/40/40.jpg" alt="کاربر" class="user-avatar">
+                    <div class="user-info">
+                        <div class="user-name">آرمان رجایی</div>
+                        <div class="user-role">مدیر ارشد</div>
+                    </div>
+                    <button class="user-menu-btn">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                </div>
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <div class="main-content" id="mainContent">
+            <!-- Header (همان هدر اصلی) -->
+            <header class="header">
+                <div class="header-left">
+                    <button class="mobile-menu-btn" id="mobileMenuBtn">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="breadcrumb">
+                        <span class="breadcrumb-item">خانه</span>
+                        <i class="fas fa-chevron-left breadcrumb-separator"></i>
+                        <span class="breadcrumb-item">مدیریت</span>
+                        <i class="fas fa-chevron-left breadcrumb-separator"></i>
+                        <span class="breadcrumb-item active">نقش‌ها</span>
+                    </div>
+                </div>
+                
+                <div class="header-center">
+                    <div class="search-bar">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="جستجو در نقش‌ها..." id="roleSearchInput">
+                        <kbd class="search-shortcut">Ctrl+K</kbd>
+                    </div>
+                </div>
+                
+                <div class="header-right">
+                    <button class="icon-btn" id="quickActionsBtn" title="اقدامات سریع">
+                        <i class="fas fa-bolt"></i>
+                    </button>
+                    <button class="icon-btn" id="themeToggle" title="تغییر تم">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <button class="icon-btn" id="fullscreenToggle" title="تمام صفحه">
+                        <i class="fas fa-expand"></i>
+                    </button>
+                    <div class="notification-dropdown">
+                        <button class="icon-btn notification-btn" id="notificationBtn" title="اعلان‌ها">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-badge pulse">5</span>
+                        </button>
+                        <div class="notification-dropdown-menu" id="notificationMenu">
+                            <div class="notification-header">
+                                <span>اعلان‌ها</span>
+                                <button class="mark-all-read">همه را خوانده شد</button>
+                            </div>
+                            <div class="notification-list">
+                                <div class="notification-item unread">
+                                    <div class="notification-icon success">
+                                        <i class="fas fa-check-circle"></i>
+                                    </div>
+                                    <div class="notification-content">
+                                        <div class="notification-title">نقش جدید ایجاد شد</div>
+                                        <div class="notification-desc">نقش "مدیر محتوا" با موفقیت ایجاد شد</div>
+                                        <div class="notification-time">2 دقیقه پیش</div>
+                                    </div>
+                                    <button class="notification-close">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                                <div class="notification-item unread">
+                                    <div class="notification-icon warning">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                    </div>
+                                    <div class="notification-content">
+                                        <div class="notification-title">تغییر دسترسی‌های نقش</div>
+                                        <div class="notification-desc">دسترسی‌های نقش "نویسنده" ویرایش شد</div>
+                                        <div class="notification-time">15 دقیقه پیش</div>
+                                    </div>
+                                    <button class="notification-close">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="notification-footer">
+                                <button class="view-all-notifications">مشاهده همه</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="user-dropdown">
+                        <button class="user-profile-btn" id="userProfileBtn">
+                            <img src="https://picsum.photos/seed/adminuser/35/35.jpg" alt="کاربر" class="user-avatar">
+                            <span class="user-status online"></span>
+                        </button>
+                        <div class="user-dropdown-menu" id="userMenu">
+                            <div class="user-dropdown-header">
+                                <img src="https://picsum.photos/seed/adminuser/50/50.jpg" alt="کاربر" class="dropdown-user-avatar">
+                                <div class="dropdown-user-info">
+                                    <div class="dropdown-user-name">آرمان رجایی</div>
+                                    <div class="dropdown-user-email">admin@example.com</div>
+                                </div>
+                            </div>
+                            <div class="user-dropdown-menu-items">
+                                <a href="#" class="dropdown-item">
+                                    <i class="fas fa-user"></i>
+                                    <span>پروفایل</span>
+                                </a>
+                                <a href="#" class="dropdown-item">
+                                    <i class="fas fa-cog"></i>
+                                    <span>تنظیمات</span>
+                                </a>
+                                <a href="#" class="dropdown-item">
+                                    <i class="fas fa-moon"></i>
+                                    <span>حالت شب</span>
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a href="#" class="dropdown-item">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    <span>خروج</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Content (محتوای اختصاصی صفحه نقش‌ها) -->
+            <div class="content" id="content">
+                <!-- Welcome Section -->
+                <div class="welcome-section fade-in">
+                    <div class="welcome-content">
+                        <h1 class="welcome-title">مدیریت نقش‌ها و دسترسی‌ها</h1>
+                        <p class="welcome-subtitle">نقش‌های سیستم و دسترسی‌های مرتبط با هر نقش را مدیریت کنید</p>
+                    </div>
+                    <div class="welcome-actions">
+                        <button class="btn btn-primary" id="addNewRoleBtn">
+                            <i class="fas fa-plus"></i>
+                            <span>افزودن نقش جدید</span>
+                        </button>
+                        <button class="btn btn-outline" id="syncPermissionsBtn">
+                            <i class="fas fa-sync"></i>
+                            <span>همگام‌سازی دسترسی‌ها</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Role Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card primary fade-in" style="animation-delay: 0.1s;">
+                        <div class="stat-card-header">
+                            <div class="stat-icon">
+                                <i class="fas fa-user-shield"></i>
+                            </div>
+                            <div class="stat-actions">
+                                <button class="stat-action-btn">
+                                    <i class="fas fa-ellipsis-h"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="stat-card-content">
+                            <div class="stat-value">4</div>
+                            <div class="stat-title">کل نقش‌ها</div>
+                            <div class="stat-change positive">
+                                <i class="fas fa-arrow-up"></i>
+                                <span>1 نقش جدید این ماه</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card warning fade-in" style="animation-delay: 0.2s;">
+                        <div class="stat-card-header">
+                            <div class="stat-icon">
+                                <i class="fas fa-cogs"></i>
+                            </div>
+                            <div class="stat-actions">
+                                <button class="stat-action-btn">
+                                    <i class="fas fa-ellipsis-h"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="stat-card-content">
+                            <div class="stat-value">3</div>
+                            <div class="stat-title">نقش‌های سیستمی</div>
+                            <div class="stat-change">
+                                <i class="fas fa-info-circle"></i>
+                                <span>غیرقابل حذف</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card success fade-in" style="animation-delay: 0.3s;">
+                        <div class="stat-card-header">
+                            <div class="stat-icon">
+                                <i class="fas fa-layer-group"></i>
+                            </div>
+                            <div class="stat-actions">
+                                <button class="stat-action-btn">
+                                    <i class="fas fa-ellipsis-h"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="stat-card-content">
+                            <div class="stat-value">1</div>
+                            <div class="stat-title">نقش‌های سفارشی</div>
+                            <div class="stat-change positive">
+                                <i class="fas fa-arrow-up"></i>
+                                <span>ایجاد شده توسط شما</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card info fade-in" style="animation-delay: 0.4s;">
+                        <div class="stat-card-header">
+                            <div class="stat-icon">
+                                <i class="fas fa-key"></i>
+                            </div>
+                            <div class="stat-actions">
+                                <button class="stat-action-btn">
+                                    <i class="fas fa-ellipsis-h"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="stat-card-content">
+                            <div class="stat-value">25</div>
+                            <div class="stat-title">مجموع دسترسی‌ها</div>
+                            <div class="stat-change">
+                                <i class="fas fa-info-circle"></i>
+                                <span>در سراسر سیستم</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filter Bar -->
+                <div class="table-card-header" style="margin-bottom: 24px; background: transparent; border: none; padding: 0;">
+                    <div class="table-title-section">
+                        <h3 class="table-title">لیست نقش‌ها</h3>
+                    </div>
+                    <div class="table-actions">
+                        <select id="roleTypeFilter" class="filter-select" style="width: 150px; margin-left: 8px;">
+                            <option value="all">همه نقش‌ها</option>
+                            <option value="system">سیستمی</option>
+                            <option value="custom">سفارشی</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Bulk Actions Bar -->
+                <div class="bulk-actions-bar" id="bulkActionsBar">
+                    <div class="bulk-actions-info">
+                        <span id="selectedCount">0</span> نقش انتخاب شده است
+                    </div>
+                    <div class="bulk-actions-buttons">
+                        <button class="bulk-action-btn" id="bulkDeleteBtn">
+                            <i class="fas fa-trash"></i> حذف
+                        </button>
+                        <button class="bulk-action-btn" id="bulkExportBtn">
+                            <i class="fas fa-download"></i> خروجی
+                        </button>
+                        <button class="bulk-action-btn" id="deselectAllBtn">
+                            <i class="fas fa-times"></i> لغو انتخاب
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Roles Grid -->
+                <div class="roles-grid" id="rolesGrid">
+                    <!-- Role Card 1: Admin -->
+                    <div class="role-card admin fade-in" style="animation-delay: 0.1s;" data-role-id="1" data-role-type="system">
+                        <div class="role-card-header">
+                            <div class="role-icon-wrapper">
+                                <i class="fas fa-crown"></i>
+                            </div>
+                            <div class="role-card-actions">
+                                <button class="action-btn view" title="مشاهده دسترسی‌ها" data-role-id="1" data-role-name="مدیر ارشد"><i class="fas fa-eye"></i></button>
+                                <button class="action-btn edit" title="ویرایش نقش" data-role-id="1" data-role-name="مدیر ارشد"><i class="fas fa-edit"></i></button>
+                            </div>
+                        </div>
+                        <div class="role-card-body">
+                            <h3 class="role-title">مدیر ارشد</h3>
+                            <p class="role-description">دسترسی کامل به تمام بخش‌های سیستم. این نقش غیرقابل حذف است.</p>
+                        </div>
+                        <div class="role-meta">
+                            <span class="role-user-count"><i class="fas fa-users"></i> 1 کاربر</span>
+                            <span class="role-status-badge system">
+                                <i class="fas fa-lock"></i>
+                                سیستمی
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Role Card 2: Editor -->
+                    <div class="role-card editor fade-in" style="animation-delay: 0.2s;" data-role-id="2" data-role-type="system">
+                        <div class="role-card-header">
+                            <div class="role-icon-wrapper">
+                                <i class="fas fa-pen-nib"></i>
+                            </div>
+                            <div class="role-card-actions">
+                                <button class="action-btn view" title="مشاهده دسترسی‌ها" data-role-id="2" data-role-name="ویرایشگر"><i class="fas fa-eye"></i></button>
+                                <button class="action-btn edit" title="ویرایش نقش" data-role-id="2" data-role-name="ویرایشگر"><i class="fas fa-edit"></i></button>
+                            </div>
+                        </div>
+                        <div class="role-card-body">
+                            <h3 class="role-title">ویرایشگر</h3>
+                            <p class="role-description">مدیریت محتوا، مقالات و صفحات. دسترسی محدود به تنظیمات اصلی.</p>
+                        </div>
+                        <div class="role-meta">
+                            <span class="role-user-count"><i class="fas fa-users"></i> 5 کاربر</span>
+                            <span class="role-status-badge system">
+                                <i class="fas fa-lock"></i>
+                                سیستمی
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Role Card 3: Author -->
+                    <div class="role-card author fade-in" style="animation-delay: 0.3s;" data-role-id="3" data-role-type="system">
+                        <div class="role-card-header">
+                            <div class="role-icon-wrapper">
+                                <i class="fas fa-feather-alt"></i>
+                            </div>
+                            <div class="role-card-actions">
+                                <button class="action-btn view" title="مشاهده دسترسی‌ها" data-role-id="3" data-role-name="نویسنده"><i class="fas fa-eye"></i></button>
+                                <button class="action-btn edit" title="ویرایش نقش" data-role-id="3" data-role-name="نویسنده"><i class="fas fa-edit"></i></button>
+                            </div>
+                        </div>
+                        <div class="role-card-body">
+                            <h3 class="role-title">نویسنده</h3>
+                            <p class="role-description">امکان نوشتن و ویرایش مقالات خود. عدم دسترسی به محتوای دیگران.</p>
+                        </div>
+                        <div class="role-meta">
+                            <span class="role-user-count"><i class="fas fa-users"></i> 12 کاربر</span>
+                            <span class="role-status-badge system">
+                                <i class="fas fa-lock"></i>
+                                سیستمی
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Role Card 4: Subscriber -->
+                    <div class="role-card subscriber fade-in" style="animation-delay: 0.4s;" data-role-id="4" data-role-type="system">
+                        <div class="role-card-header">
+                            <div class="role-icon-wrapper">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="role-card-actions">
+                                <button class="action-btn view" title="مشاهده دسترسی‌ها" data-role-id="4" data-role-name="مشترک"><i class="fas fa-eye"></i></button>
+                                <button class="action-btn edit" title="ویرایش نقش" data-role-id="4" data-role-name="مشترک"><i class="fas fa-edit"></i></button>
+                            </div>
+                        </div>
+                        <div class="role-card-body">
+                            <h3 class="role-title">مشترک</h3>
+                            <p class="role-description">دسترسی فقط به مطالب عمومی. مدیریت پروفایل شخصی.</p>
+                        </div>
+                        <div class="role-meta">
+                            <span class="role-user-count"><i class="fas fa-users"></i> 109 کاربر</span>
+                            <span class="role-status-badge system">
+                                <i class="fas fa-lock"></i>
+                                سیستمی
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Add/Edit Role Modal -->
+    <div class="modal" id="addEditRoleModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content" style="max-width: 800px;">
+            <div class="modal-header">
+                <h3 class="modal-title" id="addEditRoleModalTitle">افزودن نقش جدید</h3>
+                <button class="modal-close" id="closeAddEditRoleModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="roleForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="roleName">نام نقش</label>
+                            <input type="text" id="roleName" class="form-input" placeholder="مثلا: مدیر فروش" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="roleIconSelect">انتخاب آیکون</label>
+                            <div class="icon-picker-grid" id="iconPicker">
+                                <!-- Icons will be populated by JS -->
+                            </div>
+                            <input type="hidden" id="roleIcon" value="fas fa-user-shield">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="roleDescription">توضیحات نقش</label>
+                        <textarea id="roleDescription" class="form-input" rows="3" placeholder="این نقش چه مسئولیت‌هایی دارد؟" required></textarea>
+                    </div>
+                    
+                    <hr style="border-color: var(--dark-border); margin: 24px 0;">
+
+                    <h4 style="margin-bottom: 16px; color: var(--dark-text);">دسترسی‌های نقش</h4>
+                    <div class="permissions-grid">
+                        <div class="permission-group">
+                            <div class="permission-group-title"><i class="fas fa-users-cog"></i> مدیریت کاربران</div>
+                            <div class="permission-list">
+                                <label class="permission-item">
+                                    <input type="checkbox" class="permission-checkbox" value="view_users">
+                                    <span class="permission-label">مشاهده کاربران</span>
+                                </label>
+                                <label class="permission-item">
+                                    <input type="checkbox" class="permission-checkbox" value="create_users">
+                                    <span class="permission-label">ایجاد کاربر جدید</span>
+                                </label>
+                                <label class="permission-item">
+                                    <input type="checkbox" class="permission-checkbox" value="edit_users">
+                                    <span class="permission-label">ویرایش کاربران</span>
+                                </label>
+                                <label class="permission-item">
+                                    <input type="checkbox" class="permission-checkbox" value="delete_users">
+                                    <span class="permission-label">حذف کاربران</span>
+                                </label>
+                                <label class="permission-item">
+                                    <input type="checkbox" class="permission-checkbox" value="manage_roles">
+                                    <span class="permission-label">مدیریت نقش‌ها</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="permission-group">
+                            <div class="permission-group-title"><i class="fas fa-file-alt"></i> مدیریت محتوا</div>
+                            <div class="permission-list">
+                                <label class="permission-item">
+                                    <input type="checkbox" class="permission-checkbox" value="view_posts">
+                                    <span class="permission-label">مشاهده مقالات</span>
+                                </label>
+                                <label class="permission-item">
+                                    <input type="checkbox" class="permission-checkbox" value="create_posts">
+                                    <span class="permission-label">ایجاد مقاله</span>
+                                </label>
+                                <label class="permission-item">
+                                    <input type="checkbox" class="permission-checkbox" value="edit_posts">
+                                    <span class="permission-label">ویرایش مقالات</span>
+                                </label>
+                                <label class="permission-item">
+                                    <input type="checkbox" class="permission-checkbox" value="delete_posts">
+                                    <span class="permission-label">حذف مقالات</span>
+                                </label>
+                                <label class="permission-item">
+                                    <input type="checkbox" class="permission-checkbox" value="manage_categories">
+                                    <span class="permission-label">مدیریت دسته‌بندی‌ها</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="permission-group">
+                            <div class="permission-group-title"><i class="fas fa-shopping-cart"></i> مدیریت فروش</div>
+                            <div class="permission-list">
+                                <label class="permission-item">
+                                    <input type="checkbox" class="permission-checkbox" value="view_orders">
+                                    <span class="permission-label">مشاهده سفارشات</span>
+                                </label>
+                                <label class="permission-item">
+                                    <input type="checkbox" class="permission-checkbox" value="edit_orders">
+                                    <span class="permission-label">ویرایش وضعیت سفارش</span>
+                                </label>
+                                <label class="permission-item">
+                                    <input type="checkbox" class="permission-checkbox" value="manage_products">
+                                    <span class="permission-label">مدیریت محصولات</span>
+                                </label>
+                                <label class="permission-item">
+                                    <input type="checkbox" class="permission-checkbox" value="view_reports">
+                                    <span class="permission-label">مشاهده گزارشات مالی</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="permission-group">
+                            <div class="permission-group-title"><i class="fas fa-cogs"></i> تنظیمات سیستم</div>
+                            <div class="permission-list">
+                                <label class="permission-item">
+                                    <input type="checkbox" class="permission-checkbox" value="view_settings">
+                                    <span class="permission-label">مشاهده تنظیمات</span>
+                                </label>
+                                <label class="permission-item">
+                                    <input type="checkbox" class="permission-checkbox" value="edit_settings">
+                                    <span class="permission-label">ویرایش تنظیمات اصلی</span>
+                                </label>
+                                <label class="permission-item">
+                                    <input type="checkbox" class="permission-checkbox" value="manage_media">
+                                    <span class="permission-label">مدیریت رسانه</span>
+                                </label>
+                                <label class="permission-item">
+                                    <input type="checkbox" class="permission-checkbox" value="view_logs">
+                                    <span class="permission-label">مشاهده لاگ‌های سیستم</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="closeAddEditRoleModalBtn">
+                    <i class="fas fa-times"></i>
+                    <span>انصراف</span>
+                </button>
+                <button class="btn btn-primary" id="saveRoleBtn">
+                    <i class="fas fa-save"></i>
+                    <span>ذخیره نقش</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- View Permissions Modal -->
+    <div class="modal" id="viewPermissionsModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content" style="max-width: 600px;">
+            <div class="modal-header">
+                <h3 class="modal-title" id="viewPermissionsModalTitle">دسترسی‌های نقش: [نقش]</h3>
+                <button class="modal-close" id="closeViewPermissionsModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="permissionsListContainer">
+                    <!-- Permissions will be populated by JS -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="closeViewPermissionsModalBtn">
+                    <i class="fas fa-check"></i>
+                    <span>تایید</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Role Modal -->
+    <div class="modal" id="deleteRoleModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">حذف نقش</h3>
+                <button class="modal-close" id="closeDeleteRoleModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-warning">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <div>
+                        <h4>آیا از حذف این نقش اطمینان دارید؟</h4>
+                        <p id="deleteRoleMessage">نقش "<span id="deleteRoleName"></span>" حذف خواهد شد. اگر کاربری به این نقش اختصاص داده شده باشد، آن کاربر نقش خود را از دست خواهد داد.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="closeDeleteRoleModalBtn">
+                    <i class="fas fa-times"></i>
+                    <span>انصراف</span>
+                </button>
+                <button class="btn btn-danger" id="confirmDeleteRoleBtn">
+                    <i class="fas fa-trash"></i>
+                    <span>حذف نقش</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+    
+    <!-- Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- DOM Elements ---
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('mainContent');
+            const toggleSidebar = document.getElementById('toggleSidebar');
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const themeToggle = document.getElementById('themeToggle');
+            const fullscreenToggle = document.getElementById('fullscreenToggle');
+            const loadingScreen = document.getElementById('loadingScreen');
+            const toastContainer = document.getElementById('toastContainer');
+            const roleSearchInput = document.getElementById('roleSearchInput');
+            const roleTypeFilter = document.getElementById('roleTypeFilter');
+            const rolesGrid = document.getElementById('rolesGrid');
+
+            // Modal Elements
+            const addEditRoleModal = document.getElementById('addEditRoleModal');
+            const viewPermissionsModal = document.getElementById('viewPermissionsModal');
+            const deleteRoleModal = document.getElementById('deleteRoleModal');
+            const addEditRoleModalTitle = document.getElementById('addEditRoleModalTitle');
+            const viewPermissionsModalTitle = document.getElementById('viewPermissionsModalTitle');
+            const deleteRoleName = document.getElementById('deleteRoleName');
+            
+            // Button Elements
+            const addNewRoleBtn = document.getElementById('addNewRoleBtn');
+            const syncPermissionsBtn = document.getElementById('syncPermissionsBtn');
+            const saveRoleBtn = document.getElementById('saveRoleBtn');
+            const confirmDeleteRoleBtn = document.getElementById('confirmDeleteRoleBtn');
+            const bulkActionsBar = document.getElementById('bulkActionsBar');
+            const selectedCount = document.getElementById('selectedCount');
+            const bulkDeleteBtn = document.getElementById('bulkDeleteBtn');
+            const deselectAllBtn = document.getElementById('deselectAllBtn');
+
+            // Form Elements
+            const roleForm = document.getElementById('roleForm');
+            const roleNameInput = document.getElementById('roleName');
+            const roleDescriptionInput = document.getElementById('roleDescription');
+            const roleIconInput = document.getElementById('roleIcon');
+            const iconPicker = document.getElementById('iconPicker');
+
+            // --- State ---
+            let selectedRoles = new Set();
+            let currentEditingRoleId = null;
+            let currentDeletingRoleId = null;
+
+            // --- Icons for Picker ---
+            const availableIcons = [
+                'fas fa-user-shield', 'fas fa-crown', 'fas fa-user-tie', 'fas fa-ninja',
+                'fas fa-user-astronaut', 'fas fa-user-ninja', 'fas fa-user-secret',
+                'fas fa-pen-nib', 'fas fa-feather-alt', 'fas fa-pen-fancy',
+                'fas fa-briefcase', 'fas fa-chart-line', 'fas fa-tags', 'fas fa-box',
+                'fas fa-headset', 'fas fa-hands-helping', 'fas fa-clipboard-check'
+            ];
+
+            // --- Initialization ---
+            setTimeout(() => loadingScreen.classList.add('hidden'), 1000);
+            populateIconPicker();
+            attachEventListeners();
+            updateBulkActionsBar();
+
+            // --- Event Listeners ---
+            function attachEventListeners() {
+                // Sidebar & Header
+                toggleSidebar.addEventListener('click', () => {
+                    sidebar.classList.toggle('collapsed');
+                    mainContent.classList.toggle('expanded');
+                });
+                mobileMenuBtn.addEventListener('click', () => sidebar.classList.toggle('show'));
+                themeToggle.addEventListener('click', toggleTheme);
+                fullscreenToggle.addEventListener('click', toggleFullscreen);
+
+                // Search & Filter
+                roleSearchInput.addEventListener('input', filterRoles);
+                roleTypeFilter.addEventListener('change', filterRoles);
+
+                // Main Action Buttons
+                addNewRoleBtn.addEventListener('click', openAddRoleModal);
+                syncPermissionsBtn.addEventListener('click', () => showToast('info', 'دسترسی‌ها با آخرین نسخه همگام‌سازی شدند.'));
+                
+                // Modal Buttons
+                saveRoleBtn.addEventListener('click', saveRole);
+                confirmDeleteRoleBtn.addEventListener('click', deleteRole);
+                
+                // Bulk Actions
+                bulkDeleteBtn.addEventListener('click', bulkDeleteRoles);
+                deselectAllBtn.addEventListener('click', () => {
+                    document.querySelectorAll('.role-checkbox').forEach(cb => cb.checked = false);
+                    selectedRoles.clear();
+                    updateBulkActionsBar();
+                });
+
+                // Close Modal Buttons
+                document.querySelectorAll('.modal-close, .modal-footer .btn-outline, .modal-footer .btn-primary').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const modal = e.target.closest('.modal');
+                        if (modal && !btn.id.startsWith('save') && !btn.id.startsWith('confirm')) {
+                           modal.classList.remove('show');
+                           document.body.style.overflow = 'auto';
+                        }
+                    });
+                });
+                
+                // Close modal on overlay click
+                document.querySelectorAll('.modal-overlay').forEach(overlay => {
+                    overlay.addEventListener('click', (e) => {
+                        e.target.closest('.modal').classList.remove('show');
+                        document.body.style.overflow = 'auto';
+                    });
+                });
+
+                // Role Card Actions (using event delegation)
+                rolesGrid.addEventListener('click', (e) => {
+                    const card = e.target.closest('.role-card');
+                    if (!card) return;
+
+                    const roleId = card.dataset.roleId;
+                    const roleName = card.dataset.roleName || card.querySelector('.role-title').textContent;
+                    const roleType = card.dataset.roleType;
+
+                    if (e.target.closest('.action-btn.view')) {
+                        openViewPermissionsModal(roleId, roleName);
+                    } else if (e.target.closest('.action-btn.edit')) {
+                        if (roleType === 'system') {
+                            showToast('warning', 'نقش‌های سیستمی قابل ویرایش نیستند.');
+                            return;
+                        }
+                        openEditRoleModal(roleId);
+                    } else if (e.target.closest('.role-checkbox')) {
+                        handleRoleSelection(roleId, e.target.checked);
+                    }
+                });
+            }
+
+            // --- Functions ---
+            function populateIconPicker() {
+                iconPicker.innerHTML = '';
+                availableIcons.forEach(icon => {
+                    const iconItem = document.createElement('div');
+                    iconItem.className = 'icon-picker-item';
+                    iconItem.innerHTML = `<i class="${icon}"></i>`;
+                    iconItem.dataset.icon = icon;
+                    iconItem.addEventListener('click', () => selectIcon(icon));
+                    iconPicker.appendChild(iconItem);
+                });
+                selectIcon(availableIcons[0]); // Select first by default
+            }
+            
+            function selectIcon(icon) {
+                document.querySelectorAll('.icon-picker-item').forEach(item => item.classList.remove('selected'));
+                document.querySelector(`.icon-picker-item[data-icon="${icon}"]`).classList.add('selected');
+                roleIconInput.value = icon;
+            }
+
+            function openAddRoleModal() {
+                currentEditingRoleId = null;
+                addEditRoleModalTitle.textContent = 'افزودن نقش جدید';
+                roleForm.reset();
+                selectIcon(availableIcons[0]);
+                uncheckAllPermissions();
+                addEditRoleModal.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function openEditRoleModal(roleId) {
+                currentEditingRoleId = roleId;
+                addEditRoleModalTitle.textContent = 'ویرایش نقش';
+                // In a real app, fetch data from server
+                const mockRoleData = {
+                    id: roleId,
+                    name: 'نقش ویرایشی',
+                    description: 'این یک توضیح تست است.',
+                    icon: 'fas fa-user-tie',
+                    permissions: ['view_users', 'edit_posts', 'manage_products']
+                };
+                roleNameInput.value = mockRoleData.name;
+                roleDescriptionInput.value = mockRoleData.description;
+                selectIcon(mockRoleData.icon);
+                uncheckAllPermissions();
+                mockRoleData.permissions.forEach(p => {
+                    const checkbox = document.querySelector(`.permission-checkbox[value="${p}"]`);
+                    if (checkbox) checkbox.checked = true;
+                });
+                addEditRoleModal.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            }
+            
+            function openViewPermissionsModal(roleId, roleName) {
+                viewPermissionsModalTitle.textContent = `دسترسی‌های نقش: ${roleName}`;
+                const container = document.getElementById('permissionsListContainer');
+                // In a real app, fetch data from server
+                const mockPermissions = {
+                    'مدیریت کاربران': ['مشاهده کاربران', 'ایجاد کاربر جدید'],
+                    'مدیریت محتوا': ['ایجاد مقاله', 'ویرایش مقالات', 'مدیریت دسته‌بندی‌ها'],
+                    'مدیریت فروش': ['مشاهده سفارشات'],
+                };
+                container.innerHTML = '';
+                for (const group in mockPermissions) {
+                    const groupDiv = document.createElement('div');
+                    groupDiv.className = 'permission-group';
+                    groupDiv.innerHTML = `
+                        <div class="permission-group-title"><i class="fas fa-check-circle"></i> ${group}</div>
+                        <div class="permission-list">
+                            ${mockPermissions[group].map(p => `<div class="permission-item"><i class="fas fa-check" style="color: var(--success-color); margin-left: 8px;"></i> ${p}</div>`).join('')}
+                        </div>
+                    `;
+                    container.appendChild(groupDiv);
+                }
+                viewPermissionsModal.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function openDeleteRoleModal(roleId, roleName) {
+                currentDeletingRoleId = roleId;
+                deleteRoleName.textContent = roleName;
+                deleteRoleModal.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function saveRole() {
+                if (!roleForm.checkValidity()) {
+                    roleForm.reportValidity();
+                    return;
+                }
+                const name = roleNameInput.value;
+                const description = roleDescriptionInput.value;
+                const icon = roleIconInput.value;
+                const permissions = Array.from(document.querySelectorAll('.permission-checkbox:checked')).map(cb => cb.value);
+
+                // Simulate saving
+                showToast('success', `نقش "${name}" با موفقیت ذخیره شد.`);
+                addEditRoleModal.classList.remove('show');
+                document.body.style.overflow = 'auto';
+                
+                // In a real app, you would refresh the role grid or add the new card dynamically
+                console.log('Saving Role:', { name, description, icon, permissions });
+            }
+
+            function deleteRole() {
+                const roleName = deleteRoleName.textContent;
+                showToast('success', `نقش "${roleName}" با موفقیت حذف شد.`);
+                deleteRoleModal.classList.remove('show');
+                document.body.style.overflow = 'auto';
+                
+                // In a real app, you would remove the card from the DOM
+                const card = document.querySelector(`.role-card[data-role-id="${currentDeletingRoleId}"]`);
+                if (card) card.remove();
+            }
+            
+            function filterRoles() {
+                const searchTerm = roleSearchInput.value.toLowerCase();
+                const filterType = roleTypeFilter.value;
+                const cards = document.querySelectorAll('.role-card');
+
+                cards.forEach(card => {
+                    const name = card.querySelector('.role-title').textContent.toLowerCase();
+                    const description = card.querySelector('.role-description').textContent.toLowerCase();
+                    const type = card.dataset.roleType;
+                    
+                    const matchesSearch = name.includes(searchTerm) || description.includes(searchTerm);
+                    const matchesFilter = filterType === 'all' || type === filterType;
+
+                    card.style.display = matchesSearch && matchesFilter ? 'flex' : 'none';
+                });
+            }
+
+            function handleRoleSelection(roleId, isChecked) {
+                if (isChecked) {
+                    selectedRoles.add(roleId);
+                } else {
+                    selectedRoles.delete(roleId);
+                }
+                updateBulkActionsBar();
+            }
+
+            function updateBulkActionsBar() {
+                const count = selectedRoles.size;
+                selectedCount.textContent = count;
+                if (count > 0) {
+                    bulkActionsBar.classList.add('show');
+                } else {
+                    bulkActionsBar.classList.remove('show');
+                }
+            }
+            
+            function bulkDeleteRoles() {
+                if (confirm(`آیا از حذف ${selectedRoles.size} نقش انتخاب شده اطمینان دارید؟`)) {
+                    showToast('success', `${selectedRoles.size} نقش با موفقیت حذف شدند.`);
+                    selectedRoles.forEach(roleId => {
+                        const card = document.querySelector(`.role-card[data-role-id="${roleId}"]`);
+                        if (card) card.remove();
+                    });
+                    selectedRoles.clear();
+                    updateBulkActionsBar();
+                }
+            }
+
+            function uncheckAllPermissions() {
+                document.querySelectorAll('.permission-checkbox').forEach(cb => cb.checked = false);
+            }
+
+            // --- Utility Functions ---
+            function toggleTheme() {
+                document.body.classList.toggle('light-theme');
+                const icon = themeToggle.querySelector('i');
+                const isLight = document.body.classList.contains('light-theme');
+                icon.className = isLight ? 'fas fa-sun' : 'fas fa-moon';
+                showToast('info', `حالت ${isLight ? 'روز' : 'شب'} فعال شد`);
+            }
+
+            function toggleFullscreen() {
+                if (!document.fullscreenElement) {
+                    document.documentElement.requestFullscreen();
+                    fullscreenToggle.querySelector('i').className = 'fas fa-compress';
+                } else {
+                    document.exitFullscreen();
+                    fullscreenToggle.querySelector('i').className = 'fas fa-expand';
+                }
+            }
+            
+            function showToast(type, message, duration = 5000) {
+                const toast = document.createElement('div');
+                toast.className = `toast ${type}`;
+                const iconMap = { success: 'fa-check-circle', error: 'fa-exclamation-circle', warning: 'fa-exclamation-triangle', info: 'fa-info-circle' };
+                toast.innerHTML = `
+                    <i class="fas ${iconMap[type]} toast-icon"></i>
+                    <div class="toast-message">${message}</div>
+                    <button class="toast-close"><i class="fas fa-times"></i></button>
+                `;
+                toastContainer.appendChild(toast);
+                setTimeout(() => toast.classList.add('show'), 100);
+                toast.querySelector('.toast-close').addEventListener('click', () => {
+                    toast.classList.remove('show');
+                    setTimeout(() => toast.remove(), 300);
+                });
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                    setTimeout(() => toast.remove(), 300);
+                }, duration);
+            }
+
+            // Add checkboxes to role cards for bulk actions
+            document.querySelectorAll('.role-card').forEach(card => {
+                const header = card.querySelector('.role-card-header');
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.className = 'role-checkbox';
+                checkbox.style.position = 'absolute';
+                checkbox.style.top = '10px';
+                checkbox.style.left = '10px';
+                checkbox.addEventListener('click', (e) => e.stopPropagation()); // Prevent card click
+                checkbox.addEventListener('change', (e) => handleRoleSelection(card.dataset.roleId, e.target.checked));
+                card.style.position = 'relative';
+                card.prepend(checkbox);
+            });
+
+        });
+
+        // Add CSS for form elements
+        const formStyles = document.createElement('style');
+        formStyles.textContent = `
+            .form-row {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 16px;
+                margin-bottom: 16px;
+            }
+            
+            .form-group {
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+            }
+            
+            .form-group label {
+                font-size: 14px;
+                font-weight: 500;
+                color: var(--dark-text);
+            }
+            
+            .form-input {
+                padding: 10px 12px;
+                background: var(--dark-surface);
+                border: 1px solid var(--dark-border);
+                border-radius: 6px;
+                color: var(--dark-text);
+                font-size: 14px;
+                transition: all var(--transition-speed);
+            }
+            
+            .form-input:focus {
+                outline: none;
+                border-color: var(--primary-color);
+                box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+            }
+            
+            .alert {
+                display: flex;
+                align-items: flex-start;
+                gap: 12px;
+                padding: 16px;
+                border-radius: var(--border-radius);
+                margin-bottom: 16px;
+            }
+            
+            .alert-warning {
+                background: rgba(245, 158, 11, 0.1);
+                border: 1px solid rgba(245, 158, 11, 0.3);
+                color: var(--warning-color);
+            }
+            
+            .alert h4 {
+                margin-bottom: 8px;
+                font-size: 16px;
+                font-weight: 600;
+            }
+            
+            .alert p {
+                font-size: 14px;
+                line-height: 1.5;
+            }
+            
+            .modal-footer {
+                padding: 16px 24px;
+                border-top: 1px solid var(--dark-border);
+                display: flex;
+                justify-content: flex-end;
+                gap: 12px;
+            }
+            
+            .btn-danger {
+                background: var(--danger-color);
+                color: white;
+            }
+            
+            .btn-danger:hover {
+                background: var(--danger-dark);
+            }
+            
+            @media (max-width: 768px) {
+                .form-row {
+                    grid-template-columns: 1fr;
+                }
+            }
+        `;
+        document.head.appendChild(formStyles);
+    </script>
+</body>
+</html>
