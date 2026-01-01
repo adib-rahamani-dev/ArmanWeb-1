@@ -9,8 +9,8 @@ require '../../helper/data-base.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مدیریت کاربران - پنل مدیریت پیشرفته</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="../../assets/Admin/style/style.css">
-    <link rel="stylesheet" href="../../assets/Admin/style/users.css">
+    <link rel="stylesheet" href="<?= asset('assets/admin/style/style.css') ?>">
+    <link rel="stylesheet" href="<?= asset('assets/admin/style/users.css') ?>">
 </head>
 <body>
     <!-- Loading Screen -->
@@ -1066,7 +1066,7 @@ require '../../helper/data-base.php';
     
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="../../assets/Admin/script/users.js"></script>
+    <script src="<?= asset('assets/admin/script/users.js') ?>"></script>
     <?php if (isset($_SESSION['flash'])): ?>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
