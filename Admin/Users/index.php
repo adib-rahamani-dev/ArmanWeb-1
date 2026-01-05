@@ -1,9 +1,12 @@
-<?php 
+<?php
 session_start();
 require '../../helper/data-base.php';
+require '../../helper/helper-functions.php';
+require '../../assets/admin/layouts/sidebar.php';
 ?>
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +15,7 @@ require '../../helper/data-base.php';
     <link rel="stylesheet" href="<?= asset('assets/admin/style/style.css') ?>">
     <link rel="stylesheet" href="<?= asset('assets/admin/style/users.css') ?>">
 </head>
+
 <body>
     <!-- Loading Screen -->
     <div class="loading-screen" id="loadingScreen">
@@ -32,178 +36,6 @@ require '../../helper/data-base.php';
     </div>
 
     <div class="admin-container">
-        <!-- Sidebar (همان سایدبار اصلی) -->
-        <aside class="sidebar" id="sidebar">
-            <div class="sidebar-header">
-                <div class="logo">
-                    <div class="logo-icon">
-                        <i class="fas fa-crown"></i>
-                    </div>
-                    <span class="logo-text">آرمان رجایی</span>
-                </div>
-                <button class="toggle-btn" id="toggleSidebar" aria-label="تغییر وضعیت منو">
-                    <i class="fas fa-bars"></i>
-                </button>
-            </div>
-            
-            <div class="sidebar-search">
-                <div class="search-box">
-                    <i class="fas fa-search"></i>
-                    <input type="text" placeholder="جستجو در منو..." id="sidebarSearch">
-                </div>
-            </div>
-            
-            <nav class="sidebar-menu">
-                <div class="menu-section">
-                    <div class="menu-title">اصلی</div>
-                    <div class="menu-item">
-                        <a href="dashboard.html" class="menu-link" data-page="dashboard">
-                            <i class="fas fa-home menu-icon"></i>
-                            <span class="menu-text">داشبورد</span>
-                        </a>
-                    </div>
-                    <div class="menu-item">
-                        <a href="#" class="menu-link" data-page="analytics">
-                            <i class="fas fa-chart-line menu-icon"></i>
-                            <span class="menu-text">تحلیل‌ها</span>
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="menu-section">
-                    <div class="menu-title">مدیریت</div>
-                    <div class="menu-item">
-                        <a href="#" class="menu-link active" id="usersMenuToggle">
-                            <i class="fas fa-users menu-icon"></i>
-                            <span class="menu-text">کاربران</span>
-                            <span class="menu-badge pulse">127</span>
-                            <i class="fas fa-chevron-down menu-icon chevron"></i>
-                        </a>
-                        <div class="submenu open" id="usersSubmenu">
-                            <a href="users.html" class="menu-link active">
-                                <i class="fas fa-user-friends menu-icon"></i>
-                                <span class="menu-text">همه کاربران</span>
-                            </a>
-                            <a href="#" class="menu-link" id="addUserBtn">
-                                <i class="fas fa-user-plus menu-icon"></i>
-                                <span class="menu-text">افزودن کاربر</span>
-                            </a>
-                            <a href="user-roles.html" class="menu-link">
-                                <i class="fas fa-user-shield menu-icon"></i>
-                                <span class="menu-text">نقش‌ها</span>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <a href="#" class="menu-link" id="productsMenuToggle">
-                            <i class="fas fa-box menu-icon"></i>
-                            <span class="menu-text">محصولات</span>
-                            <span class="menu-badge">456</span>
-                            <i class="fas fa-chevron-down menu-icon chevron"></i>
-                        </a>
-                        <div class="submenu" id="productsSubmenu">
-                            <a href="#" class="menu-link">
-                                <i class="fas fa-th-large menu-icon"></i>
-                                <span class="menu-text">همه محصولات</span>
-                            </a>
-                            <a href="#" class="menu-link">
-                                <i class="fas fa-plus-circle menu-icon"></i>
-                                <span class="menu-text">افزودن محصول</span>
-                            </a>
-                            <a href="#" class="menu-link">
-                                <i class="fas fa-tags menu-icon"></i>
-                                <span class="menu-text">دسته‌بندی‌ها</span>
-                            </a>
-                            <a href="#" class="menu-link">
-                                <i class="fas fa-warehouse menu-icon"></i>
-                                <span class="menu-text">موجودی</span>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <a href="#" class="menu-link" data-page="orders">
-                            <i class="fas fa-shopping-cart menu-icon"></i>
-                            <span class="menu-text">سفارشات</span>
-                            <span class="menu-badge pulse">89</span>
-                        </a>
-                    </div>
-                    <div class="menu-item">
-                        <a href="#" class="menu-link" data-page="finance">
-                            <i class="fas fa-wallet menu-icon"></i>
-                            <span class="menu-text">مالی</span>
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="menu-section">
-                    <div class="menu-title">محتوا</div>
-                    <div class="menu-item">
-                        <a href="#" class="menu-link" id="blogMenuToggle">
-                            <i class="fas fa-blog menu-icon"></i>
-                            <span class="menu-text">وبلاگ</span>
-                            <i class="fas fa-chevron-down menu-icon chevron"></i>
-                        </a>
-                        <div class="submenu" id="blogSubmenu">
-                            <a href="#" class="menu-link">
-                                <i class="fas fa-newspaper menu-icon"></i>
-                                <span class="menu-text">همه مقالات</span>
-                            </a>
-                            <a href="#" class="menu-link">
-                                <i class="fas fa-pen menu-icon"></i>
-                                <span class="menu-text">نوشتن مقاله</span>
-                            </a>
-                            <a href="#" class="menu-link">
-                                <i class="fas fa-folder menu-icon"></i>
-                                <span class="menu-text">دسته‌بندی‌ها</span>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <a href="#" class="menu-link" data-page="media">
-                            <i class="fas fa-photo-video menu-icon"></i>
-                            <span class="menu-text">رسانه</span>
-                        </a>
-                    </div>
-                    <div class="menu-item">
-                        <a href="#" class="menu-link" data-page="comments">
-                            <i class="fas fa-comments menu-icon"></i>
-                            <span class="menu-text">نظرات</span>
-                            <span class="menu-badge pulse">23</span>
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="menu-section">
-                    <div class="menu-title">ابزارها</div>
-                    <div class="menu-item">
-                        <a href="#" class="menu-link" data-page="reports">
-                            <i class="fas fa-file-alt menu-icon"></i>
-                            <span class="menu-text">گزارش‌ها</span>
-                        </a>
-                    </div>
-                    <div class="menu-item">
-                        <a href="#" class="menu-link" data-page="settings">
-                            <i class="fas fa-cog menu-icon"></i>
-                            <span class="menu-text">تنظیمات</span>
-                        </a>
-                    </div>
-                </div>
-            </nav>
-            
-            <div class="sidebar-footer">
-                <div class="user-card">
-                    <img src="https://picsum.photos/seed/adminuser/40/40.jpg" alt="کاربر" class="user-avatar">
-                    <div class="user-info">
-                        <div class="user-name">آرمان رجایی</div>
-                        <div class="user-role">مدیر ارشد</div>
-                    </div>
-                    <button class="user-menu-btn">
-                        <i class="fas fa-ellipsis-v"></i>
-                    </button>
-                </div>
-            </div>
-        </aside>
-        
         <!-- Main Content -->
         <div class="main-content" id="mainContent">
             <!-- Header (همان هدر اصلی) -->
@@ -220,7 +52,7 @@ require '../../helper/data-base.php';
                         <span class="breadcrumb-item active">کاربران</span>
                     </div>
                 </div>
-                
+
                 <div class="header-center">
                     <div class="search-bar">
                         <i class="fas fa-search"></i>
@@ -228,7 +60,7 @@ require '../../helper/data-base.php';
                         <kbd class="search-shortcut">Ctrl+K</kbd>
                     </div>
                 </div>
-                
+
                 <div class="header-right">
                     <button class="icon-btn" id="quickActionsBtn" title="اقدامات سریع">
                         <i class="fas fa-bolt"></i>
@@ -331,7 +163,7 @@ require '../../helper/data-base.php';
                     </div>
                 </div>
             </header>
-            
+
             <!-- Content (محتوای اختصاصی صفحه کاربران) -->
             <div class="content" id="content">
                 <!-- Welcome Section -->
@@ -351,7 +183,7 @@ require '../../helper/data-base.php';
                         </button>
                     </div>
                 </div>
-                
+
                 <!-- User Stats -->
                 <div class="stats-grid">
                     <div class="stat-card primary fade-in" style="animation-delay: 0.1s;">
@@ -377,7 +209,7 @@ require '../../helper/data-base.php';
                             <canvas id="usersChart"></canvas>
                         </div>
                     </div>
-                    
+
                     <div class="stat-card success fade-in" style="animation-delay: 0.2s;">
                         <div class="stat-card-header">
                             <div class="stat-icon">
@@ -401,7 +233,7 @@ require '../../helper/data-base.php';
                             <canvas id="activeUsersChart"></canvas>
                         </div>
                     </div>
-                    
+
                     <div class="stat-card warning fade-in" style="animation-delay: 0.3s;">
                         <div class="stat-card-header">
                             <div class="stat-icon">
@@ -425,7 +257,7 @@ require '../../helper/data-base.php';
                             <canvas id="newUsersChart"></canvas>
                         </div>
                     </div>
-                    
+
                     <div class="stat-card info fade-in" style="animation-delay: 0.4s;">
                         <div class="stat-card-header">
                             <div class="stat-icon">
@@ -450,7 +282,7 @@ require '../../helper/data-base.php';
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- User Import/Export -->
                 <div class="user-import-export fade-in" style="animation-delay: 0.5s;">
                     <button class="import-export-btn" id="importUsersBtn">
@@ -466,7 +298,7 @@ require '../../helper/data-base.php';
                         <span>ارسال ایمیل گروهی</span>
                     </button>
                 </div>
-                
+
                 <!-- Advanced Filters -->
                 <div class="user-filters-advanced fade-in" id="userFilters" style="display: none; animation-delay: 0.6s;">
                     <div class="filter-group">
@@ -502,7 +334,7 @@ require '../../helper/data-base.php';
                         <button class="filter-btn filter-btn-reset" id="resetFilters">بازنشانی</button>
                     </div>
                 </div>
-                
+
                 <!-- Users Table -->
                 <div class="table-card fade-in" style="animation-delay: 0.7s;">
                     <div class="table-card-header">
@@ -522,7 +354,7 @@ require '../../helper/data-base.php';
                             </button>
                         </div>
                     </div>
-                    
+
                     <div class="table-container">
                         <table class="data-table">
                             <thead>
@@ -539,73 +371,73 @@ require '../../helper/data-base.php';
                                     <th>عملیات</th>
                                 </tr>
                             </thead>
-                                <tr>
-                            <?php 
-                            global $pdo;
-                            $query = 'SELECT * FROM `users`';
-                            $statement = $pdo->prepare($query);
-                            $statement->execute();
-                            $users = $statement->fetchAll();
-                            ?>  
-                            <tbody>
-                            <?php foreach ($users as $user): ?>
-                                    <td><input type="checkbox" class="table-checkbox"></td>
-                                    <td>
-                                        <div class="customer-cell">
-                                            <img src="<?php echo htmlspecialchars($user['avatar'] ?? 'https://picsum.photos/seed/user/30/30.jpg'); ?>" alt="کاربر" class="customer-avatar">
-                                            <span class="customer-name"><?php echo htmlspecialchars(trim(($user['first_name'] ?? '') . ' ' . ($user['last_name'] ?? '')) ?: ($user['username'] ?? 'کاربر')); ?></span>
-                                        </div>
-                                    </td>
-                                    <td><?php echo htmlspecialchars($user['email'] ?? '-'); ?></td>
-                                    <td>
-                                        <?php
-                                        $role = $user['role'] ?? 'subscriber';
-                                        $roleClassMap = ['admin' => 'primary', 'editor' => 'info', 'author' => 'warning', 'subscriber' => 'secondary'];
-                                        $roleLabelMap = ['admin' => 'مدیر', 'editor' => 'ویرایشگر', 'author' => 'نویسنده', 'subscriber' => 'مشترک'];
-                                        $roleClass = $roleClassMap[$role] ?? 'secondary';
-                                        $roleLabel = $roleLabelMap[$role] ?? htmlspecialchars($role);
-                                        ?>
-                                        <span class="status-badge <?php echo $roleClass; ?>">
-                                            <i class="fas fa-user"></i>
-                                            <?php echo $roleLabel; ?>
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <?php
-                                        $status = $user['status'] ?? 'inactive';
-                                        $statusClass = ($status=='active') ? 'success' : (($status=='blocked') ? 'danger' : (($status=='pending') ? 'pending' : 'secondary'));
-                                        $statusLabel = ($status=='active') ? 'فعال' : (($status=='blocked') ? 'مسدود' : (($status=='pending') ? 'در انتظار تایید' : 'غیرفعال'));
-                                        ?>
-                                        <span class="status-badge <?php echo $statusClass; ?>"><?php echo $statusLabel; ?></span>
-                                    </td>
-                                    <td>
-                                        <span class="date"><?php echo htmlspecialchars($user['created_at'] ?? '-'); ?></span>
-                                    </td>
-                                    <td>
-                                        <span class="date"><?php echo htmlspecialchars($user['last_login'] ?? '-'); ?></span>
-                                    </td>
-                                    <td>
-                                        <div class="table-actions">
-                                            <button class="action-btn view" title="مشاهده" data-user-id="<?php echo (int)($user['id'] ?? 0); ?>">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                            <button class="action-btn edit" title="ویرایش" data-user-id="<?php echo (int)($user['id'] ?? 0); ?>">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            <button class="action-btn delete" title="حذف" data-user-id="<?php echo (int)($user['id'] ?? 0); ?>">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                            <button class="action-btn more" title="بیشتر" data-user-id="<?php echo (int)($user['id'] ?? 0); ?>">
-                                                <i class="fas fa-ellipsis-v"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                            </tbody>
+                            <tr>
+                                <?php
+                                global $pdo;
+                                $query = 'SELECT * FROM `users`';
+                                $statement = $pdo->prepare($query);
+                                $statement->execute();
+                                $users = $statement->fetchAll();
+                                ?>
+                                <tbody>
+                                    <?php foreach ($users as $user): ?>
+                                        <td><input type="checkbox" class="table-checkbox"></td>
+                                        <td>
+                                            <div class="customer-cell">
+                                                <img src="<?php echo htmlspecialchars($user['avatar'] ?? 'https://picsum.photos/seed/user/30/30.jpg'); ?>" alt="کاربر" class="customer-avatar">
+                                                <span class="customer-name"><?php echo htmlspecialchars(trim(($user['first_name'] ?? '') . ' ' . ($user['last_name'] ?? '')) ?: ($user['username'] ?? 'کاربر')); ?></span>
+                                            </div>
+                                        </td>
+                                        <td><?php echo htmlspecialchars($user['email'] ?? '-'); ?></td>
+                                        <td>
+                                            <?php
+                                            $role = $user['role'] ?? 'subscriber';
+                                            $roleClassMap = ['admin' => 'primary', 'editor' => 'info', 'author' => 'warning', 'subscriber' => 'secondary'];
+                                            $roleLabelMap = ['admin' => 'مدیر', 'editor' => 'ویرایشگر', 'author' => 'نویسنده', 'subscriber' => 'مشترک'];
+                                            $roleClass = $roleClassMap[$role] ?? 'secondary';
+                                            $roleLabel = $roleLabelMap[$role] ?? htmlspecialchars($role);
+                                            ?>
+                                            <span class="status-badge <?php echo $roleClass; ?>">
+                                                <i class="fas fa-user"></i>
+                                                <?php echo $roleLabel; ?>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <?php
+                                            $status = $user['status'] ?? 'inactive';
+                                            $statusClass = ($status == 'active') ? 'success' : (($status == 'blocked') ? 'danger' : (($status == 'pending') ? 'pending' : 'secondary'));
+                                            $statusLabel = ($status == 'active') ? 'فعال' : (($status == 'blocked') ? 'مسدود' : (($status == 'pending') ? 'در انتظار تایید' : 'غیرفعال'));
+                                            ?>
+                                            <span class="status-badge <?php echo $statusClass; ?>"><?php echo $statusLabel; ?></span>
+                                        </td>
+                                        <td>
+                                            <span class="date"><?php echo htmlspecialchars($user['created_at'] ?? '-'); ?></span>
+                                        </td>
+                                        <td>
+                                            <span class="date"><?php echo htmlspecialchars($user['last_login'] ?? '-'); ?></span>
+                                        </td>
+                                        <td>
+                                            <div class="table-actions">
+                                                <button class="action-btn view" title="مشاهده" data-user-id="<?php echo (int)($user['id'] ?? 0); ?>">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="action-btn edit" title="ویرایش" data-user-id="<?php echo (int)($user['id'] ?? 0); ?>">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button class="action-btn delete" title="حذف" data-user-id="<?php echo (int)($user['id'] ?? 0); ?>">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                                <button class="action-btn more" title="بیشتر" data-user-id="<?php echo (int)($user['id'] ?? 0); ?>">
+                                                    <i class="fas fa-ellipsis-v"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                            </tr>
+                        <?php endforeach; ?>
+                        </tbody>
                         </table>
                     </div>
-                    
+
                     <div class="table-footer">
                         <div class="table-info">
                             نمایش 1 تا 5 از 12,543 مورد
@@ -628,7 +460,7 @@ require '../../helper/data-base.php';
             </div>
         </div>
     </div>
-    
+
     <!-- User Detail Modal -->
     <div class="modal" id="userDetailModal">
         <div class="modal-overlay"></div>
@@ -811,7 +643,7 @@ require '../../helper/data-base.php';
             exit;
         }
     }
-    
+
     // AJAX: return user data as JSON for populating edit form
     if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['action'] === 'get_user' && isset($_GET['id'])) {
         $id = (int)$_GET['id'];
@@ -878,7 +710,7 @@ require '../../helper/data-base.php';
             if (trim($password) !== '') {
                 $passwordHash = password_hash($password, PASSWORD_DEFAULT);
                 $sql .= ', password = ?';
-                array_splice($params, count($params)-1, 0, $passwordHash); // insert before updated_at and id
+                array_splice($params, count($params) - 1, 0, $passwordHash); // insert before updated_at and id
             }
             $sql .= ' WHERE id = ? LIMIT 1';
 
@@ -1020,7 +852,7 @@ require '../../helper/data-base.php';
             </div>
         </div>
     </div>
-    
+
     <!-- Delete User Modal -->
     <div class="modal" id="deleteUserModal">
         <div class="modal-overlay"></div>
@@ -1060,23 +892,25 @@ require '../../helper/data-base.php';
             </div>
         </div>
     </div>
-    
+
     <!-- Toast Container -->
     <div class="toast-container" id="toastContainer"></div>
-    
+
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="<?= asset('assets/admin/script/users.js') ?>"></script>
     <?php if (isset($_SESSION['flash'])): ?>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            try {
-                showToast('<?php echo htmlspecialchars($_SESSION['flash']['type'], ENT_QUOTES); ?>', '<?php echo addslashes($_SESSION['flash']['message']); ?>');
-            } catch (e) {
-                console.error('Flash showToast error', e);
-            }
-        });
-    </script>
-    <?php unset($_SESSION['flash']); endif; ?>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                try {
+                    showToast('<?php echo htmlspecialchars($_SESSION['flash']['type'], ENT_QUOTES); ?>', '<?php echo addslashes($_SESSION['flash']['message']); ?>');
+                } catch (e) {
+                    console.error('Flash showToast error', e);
+                }
+            });
+        </script>
+    <?php unset($_SESSION['flash']);
+    endif; ?>
 </body>
+
 </html>

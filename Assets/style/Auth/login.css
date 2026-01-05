@@ -1,0 +1,1066 @@
+/*  AUTH --> login.php  */
+/*  AUTH --> login.php  */
+/*  AUTH --> login.php  */
+/*  AUTH --> login.php  */
+/* بک‌گراند تمیز و حرفه‌ای */
+.elegant-background {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+/* گرادینت ملایم */
+.gradient-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+      ellipse at 25% 25%,
+      rgba(229, 0, 43, 0.15) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse at 75% 75%,
+      rgba(229, 0, 43, 0.1) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse at 50% 50%,
+      rgba(229, 0, 43, 0.05) 0%,
+      transparent 80%
+    );
+  animation: gradientShift 30s ease-in-out infinite;
+}
+
+@keyframes gradientShift {
+  0%,
+  100% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+}
+
+/* نورهای محیطی نرم */
+.ambient-glow {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(150px);
+  opacity: 0.4;
+  mix-blend-mode: screen;
+}
+
+.main-glow {
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(
+    circle,
+    #e5002b 0%,
+    rgba(229, 0, 43, 0.3) 50%,
+    transparent 70%
+  );
+  top: -400px;
+  right: -300px;
+  animation: glowFloat 35s infinite ease-in-out;
+}
+
+.secondary-glow {
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(
+    circle,
+    #e5002b 0%,
+    rgba(229, 0, 43, 0.2) 50%,
+    transparent 70%
+  );
+  bottom: -350px;
+  left: -300px;
+  animation: glowFloat 40s infinite ease-in-out reverse;
+}
+
+@keyframes glowFloat {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(40px, -30px) scale(1.05);
+  }
+}
+
+/* ذرات نوری ظریف */
+.subtle-particles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.light-particle {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  background: #e5002b;
+  border-radius: 50%;
+  opacity: 0.6;
+  animation: particleDrift 35s infinite linear;
+}
+
+@keyframes particleDrift {
+  0% {
+    transform: translateY(100vh) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.6;
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(100px);
+    opacity: 0;
+  }
+}
+
+/* کانتینر اصلی */
+.form-container {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 520px;
+  padding: 20px;
+}
+
+/* کارت لاگین رسمی و شیک */
+.premium-card {
+  background: linear-gradient(
+    135deg,
+    rgba(45, 45, 45, 0.95) 0%,
+    rgba(35, 35, 35, 0.95) 100%
+  );
+  backdrop-filter: blur(40px) saturate(200%);
+  border-radius: 20px;
+  padding: 60px 50px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+  position: relative;
+  overflow: hidden;
+  animation: cardEntrance 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.premium-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+@keyframes cardEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+    filter: blur(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+/* خط نوری بالای کارت */
+.premium-accent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    #e5002b 25%,
+    #ff4458 50%,
+    #e5002b 75%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: accentFlow 10s linear infinite;
+  box-shadow: 0 0 20px rgba(229, 0, 43, 0.5);
+}
+
+@keyframes accentFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+/* الگوی داخلی ظریف */
+.inner-texture {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+      circle at 20% 20%,
+      rgba(255, 255, 255, 0.01) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 80% 80%,
+      rgba(255, 255, 255, 0.01) 0%,
+      transparent 50%
+    );
+  pointer-events: none;
+}
+
+/* هدر حرفه‌ای */
+.form-header {
+  text-align: center;
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 2;
+}
+
+.logo-wrapper {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 25px;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.logo-wrapper:hover {
+  transform: scale(1.03);
+}
+
+.premium-logo {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #e5002b 0%, #ff4458 50%, #e5002b 100%);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  color: white;
+  position: relative;
+  box-shadow: 0 10px 20px rgba(229, 0, 43, 0.3), 0 0 40px rgba(229, 0, 43, 0.1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  overflow: visible;
+  z-index: 2;
+}
+
+/* خطوط چرخان دور لوگو */
+.rotating-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.ring-1 {
+  width: 100px;
+  height: 100px;
+  border: 2px solid transparent;
+  border-top: 2px solid rgba(229, 0, 43, 0.3);
+  border-radius: 50%;
+  animation: rotateRing1 8s linear infinite;
+}
+
+.ring-2 {
+  width: 110px;
+  height: 110px;
+  border: 1px solid transparent;
+  border-right: 1px solid rgba(255, 68, 88, 0.2);
+  border-radius: 50%;
+  animation: rotateRing2 10s linear infinite reverse;
+}
+
+.ring-3 {
+  width: 120px;
+  height: 120px;
+  border: 1px solid transparent;
+  border-bottom: 1px solid rgba(229, 0, 43, 0.15);
+  border-radius: 50%;
+  animation: rotateRing3 12s linear infinite;
+}
+
+@keyframes rotateRing1 {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes rotateRing2 {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes rotateRing3 {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+/* آیکون ثابت */
+.premium-logo i {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.premium-logo:hover {
+  transform: scale(1.03);
+  box-shadow: 0 12px 24px rgba(229, 0, 43, 0.35),
+    0 0 50px rgba(229, 0, 43, 0.15);
+}
+
+.form-title {
+  font-size: 32px;
+  font-weight: 700;
+  background: linear-gradient(
+    135deg,
+    #ffffff 0%,
+    #f5f5f5 30%,
+    #e8e8e8 70%,
+    #ffffff 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 10px;
+  animation: titleElegant 6s ease-in-out infinite;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.form-title:hover {
+  transform: scale(1.01);
+}
+
+@keyframes titleElegant {
+  0%,
+  100% {
+    filter: brightness(1) contrast(1);
+    transform: translateY(0);
+  }
+  50% {
+    filter: brightness(1.03) contrast(1.01);
+    transform: translateY(-1px);
+  }
+}
+
+.form-subtitle {
+  color: #a0a0a0;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  animation: fadeInUp 1.4s ease-out 0.4s both;
+  transition: color 0.3s ease;
+}
+
+.form-subtitle:hover {
+  color: #c0c0c0;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* فرم ورودی حرفه‌ای */
+.form-content {
+  position: relative;
+  z-index: 2;
+}
+
+.input-group {
+  position: relative;
+  margin-bottom: 25px;
+  animation: slideInSmooth 1.2s ease-out;
+}
+
+.input-group:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+@keyframes slideInSmooth {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* اینپوت‌های فوق‌العاده نرم */
+.premium-input {
+  width: 100%;
+  padding: 18px 55px 18px 20px;
+  background: linear-gradient(
+    135deg,
+    rgba(35, 35, 35, 0.9) 0%,
+    rgba(25, 25, 25, 0.9) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 500;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+  backdrop-filter: blur(15px);
+}
+
+.premium-input:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(38, 38, 38, 0.92) 0%,
+    rgba(28, 28, 28, 0.92) 100%
+  );
+  border-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-1px);
+}
+
+.premium-input:focus {
+  background: linear-gradient(
+    135deg,
+    rgba(40, 40, 40, 0.95) 0%,
+    rgba(30, 30, 30, 0.95) 100%
+  );
+  border-color: rgba(229, 0, 43, 0.5);
+  box-shadow: 0 0 0 3px rgba(229, 0, 43, 0.1), 0 10px 20px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+.premium-input::placeholder {
+  color: #707070;
+  font-weight: 400;
+  transition: all 0.4s ease;
+}
+
+.premium-input:focus::placeholder {
+  opacity: 0.5;
+}
+
+.input-icon {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #707070;
+  font-size: 20px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.premium-input:focus ~ .input-icon {
+  color: #e5002b;
+  transform: translateY(-50%) scale(1.1);
+}
+
+/* دکمه نمایش رمز */
+.password-toggle {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #707070;
+  font-size: 18px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 8px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 8px;
+}
+
+.password-toggle:hover {
+  color: #e5002b;
+  transform: translateY(-50%) scale(1.1);
+  background: rgba(229, 0, 43, 0.08);
+}
+
+/* گزینه‌های فرم */
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  animation: fadeInUp 1.4s ease-out 0.6s both;
+}
+
+.checkbox-wrapper {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.3s ease;
+}
+
+.checkbox-wrapper:hover {
+  transform: translateX(3px);
+}
+
+.checkbox-wrapper input[type="checkbox"] {
+  display: none;
+}
+
+.premium-checkbox {
+  width: 22px;
+  height: 22px;
+  border: 2px solid #707070;
+  border-radius: 6px;
+  margin-left: 12px;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  background: transparent;
+}
+
+.checkbox-wrapper input[type="checkbox"]:checked ~ .premium-checkbox {
+  background: linear-gradient(135deg, #e5002b, #ff4458);
+  border-color: #e5002b;
+  animation: checkPremium 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes checkPremium {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+  25% {
+    transform: scale(1.15) rotate(5deg);
+  }
+  50% {
+    transform: scale(0.9) rotate(-5deg);
+  }
+  75% {
+    transform: scale(1.05) rotate(2deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+.premium-checkbox::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  right: 6px;
+  width: 6px;
+  height: 12px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg) scale(0);
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.checkbox-wrapper input[type="checkbox"]:checked ~ .premium-checkbox::after {
+  transform: rotate(45deg) scale(1);
+}
+
+.checkbox-label {
+  color: #a0a0a0;
+  font-size: 15px;
+  font-weight: 400;
+  transition: color 0.3s ease;
+}
+
+.checkbox-wrapper:hover .checkbox-label {
+  color: #c0c0c0;
+}
+
+.forgot-link {
+  color: #e5002b;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.forgot-link::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  right: 0;
+  width: 0;
+  height: 1px;
+  background: linear-gradient(90deg, #e5002b, #ff4458);
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.forgot-link:hover::after {
+  width: 100%;
+}
+
+.forgot-link:hover {
+  color: #ff4458;
+  transform: translateY(-1px);
+}
+
+/* دکمه ورود حرفه‌ای با انیمیشن جدید */
+.premium-button {
+  width: 100%;
+  padding: 18px;
+  background: linear-gradient(135deg, #e5002b 0%, #ff4458 100%);
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: fadeInUp 1.4s ease-out 0.8s both;
+  box-shadow: 0 10px 20px rgba(229, 0, 43, 0.25), 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* انیمیشن موج برای دکمه */
+.button-wave {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.2) 50%,
+    transparent 100%
+  );
+  transition: left 0.6s ease;
+}
+
+.premium-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px rgba(229, 0, 43, 0.35), 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.premium-button:hover .button-wave {
+  left: 100%;
+}
+
+.premium-button:active {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(229, 0, 43, 0.3), 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* افکت برجسته شدن هنگام فوکوس */
+.premium-button:focus {
+  outline: none;
+  box-shadow: 0 15px 30px rgba(229, 0, 43, 0.35),
+    0 0 0 3px rgba(229, 0, 43, 0.3), 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.premium-button.loading {
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.premium-button.success {
+  background: linear-gradient(135deg, #2ecc71, #27ae60);
+  animation: successPremium 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes successPremium {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.03);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* جداکننده ظریف و برجسته */
+.form-divider {
+  text-align: center;
+  margin: 35px 0;
+  position: relative;
+  animation: fadeInUp 1.4s ease-out 1s both;
+}
+
+.form-divider::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.2) 20%,
+    rgba(255, 255, 255, 0.2) 80%,
+    transparent 100%
+  );
+}
+
+.form-divider span {
+  background: linear-gradient(
+    135deg,
+    rgba(45, 45, 45, 0.98) 0%,
+    rgba(35, 35, 35, 0.98) 100%
+  );
+  padding: 0 25px;
+  color: #888;
+  font-size: 15px;
+  position: relative;
+  border-radius: 30px;
+  backdrop-filter: blur(15px);
+  font-weight: 500;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.form-divider:hover span {
+  color: #aaa;
+  background: linear-gradient(
+    135deg,
+    rgba(48, 48, 48, 0.98) 0%,
+    rgba(38, 38, 38, 0.98) 100%
+  );
+  transform: scale(1.02);
+}
+
+/* شبکه‌های اجتماعی */
+.social-section {
+  margin-bottom: 30px;
+  animation: fadeInUp 1.4s ease-out 1.2s both;
+}
+
+.social-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.social-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(
+    135deg,
+    rgba(35, 35, 35, 0.9) 0%,
+    rgba(25, 25, 25, 0.9) 100%
+  );
+  backdrop-filter: blur(15px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.social-btn::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  transform: translate(-50%, -50%);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.social-btn:hover::before {
+  width: 100%;
+  height: 100%;
+}
+
+.social-btn:hover {
+  transform: translateY(-4px) scale(1.05);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.social-btn.google:hover {
+  background: linear-gradient(135deg, #db4437, #c23321);
+  border-color: #db4437;
+  box-shadow: 0 10px 25px rgba(219, 68, 55, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.social-btn.telegram:hover {
+  background: linear-gradient(135deg, #0088cc, #0077b3);
+  border-color: #0088cc;
+  box-shadow: 0 10px 25px rgba(0, 136, 204, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.social-btn.instagram:hover {
+  background: linear-gradient(
+    45deg,
+    #f09433 0%,
+    #e6683c 25%,
+    #dc2743 50%,
+    #cc2366 75%,
+    #bc1888 100%
+  );
+  border-color: transparent;
+  box-shadow: 0 10px 25px rgba(225, 48, 108, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* لینک ثبت‌نام */
+.register-section {
+  text-align: center;
+  animation: fadeInUp 1.4s ease-out 1.4s both;
+}
+
+.register-text {
+  color: #707070;
+  font-size: 15px;
+  font-weight: 400;
+  transition: color 0.3s ease;
+}
+
+.register-section:hover .register-text {
+  color: #909090;
+}
+
+.register-link {
+  color: #e5002b;
+  text-decoration: none;
+  font-weight: 600;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-block;
+}
+
+.register-link::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  right: 0;
+  width: 0;
+  height: 1px;
+  background: linear-gradient(90deg, #e5002b, #ff4458);
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.register-link:hover::after {
+  width: 100%;
+}
+
+.register-link:hover {
+  color: #ff4458;
+  transform: translateY(-1px);
+}
+
+/* پیام‌های حرفه‌ای با انیمیشن بهتر */
+.premium-toast {
+  position: fixed;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-100px);
+  min-width: 320px;
+  max-width: 90%;
+  padding: 20px 28px;
+  border-radius: 12px;
+  color: white;
+  font-weight: 500;
+  font-size: 15px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 8px 20px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  z-index: 1000;
+  opacity: 0;
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.premium-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.premium-toast.hide {
+  opacity: 0;
+  transform: translateX(-50%) translateY(-100px);
+}
+
+.premium-toast.success {
+  background: linear-gradient(
+    135deg,
+    rgba(46, 204, 113, 0.95),
+    rgba(39, 174, 96, 0.95)
+  );
+}
+
+.premium-toast.error {
+  background: linear-gradient(
+    135deg,
+    rgba(231, 76, 60, 0.95),
+    rgba(192, 57, 43, 0.95)
+  );
+}
+
+.premium-toast.info {
+  background: linear-gradient(
+    135deg,
+    rgba(52, 152, 219, 0.95),
+    rgba(41, 128, 185, 0.95)
+  );
+}
+
+.toast-icon {
+  font-size: 24px;
+  animation: toastIconBounce 2s infinite ease-in-out;
+}
+
+@keyframes toastIconBounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+/* رسپانسیو حرفه‌ای */
+@media (max-width: 768px) {
+  .form-container {
+    padding: 15px;
+  }
+
+  .premium-card {
+    padding: 50px 40px;
+    border-radius: 18px;
+  }
+
+  .form-title {
+    font-size: 28px;
+  }
+
+  .premium-logo {
+    width: 70px;
+    height: 70px;
+    font-size: 32px;
+  }
+
+  .ring-1 {
+    width: 90px;
+    height: 90px;
+  }
+
+  .ring-2 {
+    width: 100px;
+    height: 100px;
+  }
+
+  .ring-3 {
+    width: 110px;
+    height: 110px;
+  }
+
+  .premium-toast {
+    min-width: 280px;
+    padding: 18px 24px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .form-container {
+    padding: 10px;
+  }
+
+  .premium-card {
+    padding: 40px 30px;
+    border-radius: 16px;
+  }
+
+  .form-title {
+    font-size: 24px;
+  }
+
+  .form-subtitle {
+    font-size: 14px;
+  }
+
+  .premium-input {
+    padding: 16px 50px 16px 18px;
+    font-size: 15px;
+  }
+
+  .premium-button {
+    padding: 16px;
+    font-size: 15px;
+  }
+
+  .form-options {
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-start;
+  }
+
+  .social-btn {
+    width: 45px;
+    height: 45px;
+    font-size: 18px;
+  }
+
+  .register-text {
+    font-size: 14px;
+  }
+
+  .premium-toast {
+    min-width: 250px;
+    padding: 16px 20px;
+    font-size: 13px;
+  }
+}
