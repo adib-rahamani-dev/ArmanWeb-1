@@ -1,6 +1,41 @@
 <?php
 require '../helper/data-base.php';
 require '../helper/helper-functions.php';
+$error = '';
+
+if (isset($_POST['submit'])) {
+    // بررسی وجود و پر بودن فیلدها
+    if (
+        isset($_POST['first_name']) && $_POST['first_name'] !== '' &&
+        isset($_POST['last_name']) && $_POST['last_name'] !== '' &&
+        isset($_POST['phone']) && $_POST['phone'] !== '' &&
+        isset($_POST['username']) && $_POST['username'] !== '' &&
+        isset($_POST['email']) && $_POST['email'] !== '' &&
+        isset($_POST['password']) && $_POST['password'] !== ''
+    ) {
+        // جستجوی کاربر در جدول 'users' بر اساس نام کاربری
+        $query = 'SELECT * FROM `users` WHERE `username` = ?';
+        $stmt = $pdo->prepare($query);
+        $stmt->execute([$_POST['username']]);
+        $user = $stmt->fetch();
+
+        if ($user === false) {
+            // هش کردن پسورد
+            $hashed_password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+
+            // ایجاد حساب کاربری جدید
+            $query = 'INSERT INTO `users` (`first_name`, `last_name`, `phone`, `username`, `email`, `password`) VALUES (?, ?, ?, ?, ?, ?)';
+            $stmt = $pdo->prepare($query);
+            $stmt->execute([$_POST['first_name'], $_POST['last_name'], $_POST['phone'], $_POST['username'], $_POST['email'], $hashed_password]);
+            $_SESSION['user'] = $_POST['username'];
+            redirect('../index.php');
+        } else {
+            $error = 'نام کاربری قبلاً استفاده شده است!';
+        }
+    } else {
+        $error = 'لطفاً تمام فیلدها را پر کنید!';
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -10,11 +45,11 @@ require '../helper/helper-functions.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ثبت‌نام - وبسایت آرمان رجایی</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"> -->
     <link rel="stylesheet" href="<?= asset('assets/style/auth/register.css') ?>">
 </head>
 <style>
-    @import url("https://fonts.googleapis.com/css2?family=Vazirmatn:wght@200;300;400;500;600;700;800;900&display=swap");
+    /* @import url("https://fonts.googleapis.com/css2?family=Vazirmatn:wght@200;300;400;500;600;700;800;900&display=swap"); */
 
     * {
         margin: 0;
@@ -79,23 +114,22 @@ require '../helper/helper-functions.php';
                     <div class="step-title">رمز عبور</div>
                 </div>
             </div>
-
             <div class="form-content">
-                <form id="registerForm">
+                <form method="post" action="<?= url('auth/register.php') ?>" id="registerForm">
                     <!-- مرحله ۱: اطلاعات شخصی -->
                     <div class="form-step active" id="step1">
                         <div class="input-group">
-                            <input type="text" class="premium-input" id="firstName" placeholder="نام" required>
+                            <input type="text" class="premium-input" name="first_name" id="first_Name" placeholder="نام" required>
                             <i class="fas fa-user input-icon"></i>
                         </div>
 
                         <div class="input-group">
-                            <input type="text" class="premium-input" id="lastName" placeholder="نام خانوادگی" required>
+                            <input type="text" class="premium-input" name="last_Name" id="last_Name" placeholder="نام خانوادگی" required>
                             <i class="fas fa-user input-icon"></i>
                         </div>
 
                         <div class="input-group">
-                            <input type="tel" class="premium-input" id="phoneNumber" placeholder="شماره تماس" required>
+                            <input type="tel" class="premium-input" name="phone" id="phone" placeholder="شماره تماس" required>
                             <i class="fas fa-phone input-icon"></i>
                         </div>
                     </div>
@@ -103,12 +137,12 @@ require '../helper/helper-functions.php';
                     <!-- مرحله ۲: اطلاعات حساب کاربری -->
                     <div class="form-step" id="step2">
                         <div class="input-group">
-                            <input type="text" class="premium-input" id="username" placeholder="نام کاربری" required>
+                            <input type="text" class="premium-input" name="username" id="username" placeholder="نام کاربری" required>
                             <i class="fas fa-user-circle input-icon"></i>
                         </div>
 
                         <div class="input-group">
-                            <input type="email" class="premium-input" id="email" placeholder="ایمیل" required>
+                            <input type="email" class="premium-input" name="email" id="email" placeholder="ایمیل" required>
                             <i class="fas fa-envelope input-icon"></i>
                         </div>
                     </div>
@@ -116,7 +150,7 @@ require '../helper/helper-functions.php';
                     <!-- مرحله ۳: رمز عبور -->
                     <div class="form-step" id="step3">
                         <div class="input-group password-group">
-                            <input type="password" class="premium-input password-input" id="password" placeholder="رمز عبور" required aria-describedby="passwordStrengthText">
+                            <input type="password" class="premium-input password-input" name="password" id="password" placeholder="رمز عبور" required aria-describedby="passwordStrengthText">
                             <i class="fas fa-lock input-icon" aria-hidden="true"></i>
                             <button type="button" class="password-toggle" id="togglePassword" aria-label="نمایش یا مخفی کردن رمز">
                                 <i class="fas fa-eye"></i>
@@ -159,6 +193,7 @@ require '../helper/helper-functions.php';
                     </div>
                 </form>
             </div>
+
 
             <div class="form-divider">
                 <span>یا ثبت‌نام با</span>
