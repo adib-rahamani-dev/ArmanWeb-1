@@ -1,31 +1,48 @@
+<?php
+require_once '../helper/data-base.php';
+require_once '../helper/helper-functions.php';
+?>
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>وبسایت آرمان رجایی</title>
 
-    <link rel="stylesheet" href="../Assets/style/sample_work.css" />
-    <link rel="stylesheet" href="../Assets/style/main.css" />
-    <link
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>وبسایت آرمان رجایی</title>
+
+  <link rel="stylesheet" href="../Assets/style/sample_work.css" />
+  <link rel="stylesheet" href="../Assets/style/main.css" />
+  <!-- <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-    />
-  </head>
-  <body>
+    /> -->
+</head>
+
+<body>
+  <?php
+  if (isset($_GET['product_id'])) {
+    $product_id = $_GET['product_id'];
+    global $pdo;
+    $query = 'SELECT * FROM products WHERE id = ?';
+    $stmt = $pdo->prepare($query);
+    $stmt->execute([$product_id]);
+    $product = $stmt->fetch();
+  ?>
     <div class="page-wrap">
       <section class="information-section">
         <div class="content">
-          <h1 class="product-name">موضوع این محصول</h1>
-          <p class="short-info">مشخصات و اطلاعات راجب</p>
-          <p class="short-info">مشخصات و اطلاعات راجب</p>
-          <p class="short-info">مشخصات و اطلاعات راجب</p>
+          <h1 class="product-name"><?= $product['title'] ?></h1>
+          <p class="short-info"><?= $product['information'] ?></p>
+          <p class="short-info"><?= $product['information_2'] ?></p>
+          <p class="short-info"><?= $product['information_3'] ?></p>
           <div class="price-and-actions">
             <div class="price">
               <h4 class="title">قیمت:</h4>
               <span class="old-price">190,000</span>
-              <p class="new-price">150,000</p>
-              <div class="price-unit"><p>تومان</p></div>
+              <p class="new-price"><?= $product['price'] ?></p>
+              <div class="price-unit">
+                <p>تومان</p>
+              </div>
             </div>
             <div class="add-action">
               <button class="add-to-cart">افزودن به سبد خرید</button>
@@ -60,10 +77,7 @@
         </div>
         <section class="tab-content show-long-description">
           <p>
-            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
-            استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در
-            ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و
-            کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
+          <?= $product['description'] ?>
           </p>
         </section>
       </div>
@@ -90,6 +104,8 @@
       </div>
     </div>
     </div>
-      <script src="../assets/js/script.js"></script>
-  </body>
+    <script src="../assets/js/script.js"></script>
+</body>
+
 </html>
+<?php } ?>

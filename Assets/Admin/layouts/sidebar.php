@@ -159,7 +159,7 @@
 
             <div class="sidebar-footer">
                 <div class="user-card">
-                    <img src="https://picsum.photos/seed/adminuser/40/40.jpg" alt="کاربر" class="user-avatar">
+                    <img src="" alt="کاربر" class="user-avatar">
                     <div class="user-info">
                         <div class="user-name">آرمان رجایی</div>
                         <div class="user-role">مدیر ارشد</div>

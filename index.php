@@ -1,0 +1,307 @@
+<?php
+require 'helper/data-base.php';
+require 'helper/helper-functions.php';
+
+?>
+<!DOCTYPE html>
+<html lang="fa">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>وبسایت آرمان رجایی</title>
+  <link rel="stylesheet" href="Assets/style/style.css" />
+  <link rel="stylesheet" href="Assets/style/main.css" />
+  <!-- <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    /> -->
+</head>
+
+<body>
+  <!-- navbar -->
+  <nav class="navbar">
+    <div class="box-btn">
+      <button class="card-btn"><i class="fa-solid fa-cart-shopping"></i></button>
+      <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+      <button class="register-btn"><a href="Auth/login.php" style="text-decoration: none; color: white;">ورود | عضویت</a></button>
+    </div>
+    <div></div>
+    <div class="right-section">
+      <div class="nav-logo">
+        <img src="Assets/IMG/icon.jpg" alt="لوگو" />
+      </div>
+      <ul>
+        <li><a href="#">همکاری</a></li>
+        <li><a href="#">نمونه کار</a></li>
+        <li><a href="#">تعرفه</a></li>
+        <li><a href="#">قرعه کشی</a></li>
+      </ul>
+    </div>
+  </nav>
+  <!-- baner  -->
+  <div class="hero-section">
+    <div class="hero-container">
+      <svg
+        class="hero-shape"
+        viewBox="0 0 1000 300"
+        preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color: #4d4d4d" />
+          </linearGradient>
+          <clipPath id="shape-clip" clipPathUnits="objectBoundingBox">
+            <path
+              d="M0,0H0.98A0.02,0.0667,0,0,1,1,0.0667V0.6667A0.02,0.0667,0,0,1,0.98,0.7333H0.91A0.02,0.0667,0,0,0,0.89,0.8V0.9333A0.02,0.0667,0,0,1,0.87,1H0.02A0.02,0.0667,0,0,1,0,0.9333V0.3333A0.02,0.0667,0,0,1,0.02,0.2667H0.09A0.02,0.0667,0,0,0,0.11,0.2V0.0667A0.02,0.0667,0,0,1,0.13,0" />
+          </clipPath>
+        </defs>
+        <rect width="1000" height="300" fill="url(#gradient)" />
+        <image x="-50" y="-5" width="550" href="Assets/IMG/baner.png" />
+      </svg>
+
+      <div class="badge-content badge-top">
+        <span class="badge-number">+100</span>
+        <span class="badge-text">پروژه انجام شده</span>
+      </div>
+
+      <div class="hero-content-only-text">
+        <h2 class="hero-subtitle">
+          آرمـــــــــــــــــــان
+          رجـــــــــــــــــــــــــــــــــــــــــایی
+        </h2>
+        <h1 class="hero-title">
+          واینر گـــــــــــــــرگــــــــــان با بــــــازدهی بـــــالا
+        </h1>
+      </div>
+
+      <div class="badge-content badge-bottom">
+        <span class="badge-number">+5</span>
+        <span class="badge-text">سال تجربه</span>
+      </div>
+    </div>
+  </div>
+  <!-- Services-img -->
+  <div class="Services-img-section">
+    <div class="Services-img-container">
+      <img src="Assets/IMG/box1.png" alt="خدمات" />
+    </div>
+    <div class="Services-img-container">
+      <img src="Assets/IMG/box1.png" alt="خدمات" />
+    </div>
+    <div class="Services-img-container">
+      <img src="Assets/IMG/box1.png" alt="خدمات" />
+    </div>
+    <div class="Services-img-container">
+      <img src="Assets/IMG/box1.png" alt="خدمات" />
+    </div>
+  </div>
+
+  <!--  کنار شما هستیم  -->
+  <br />
+
+  <div class="for-why-div">
+    <p>! به این دلیل کنار شما هستیم</p>
+  </div>
+  <div class="reason-section">
+    <div class="reason-text">
+      <div class="manage-text-position">
+        <h2>صرفه جویی در زمان</h2>
+      </div>
+      <p>
+        ضبط ویدیو تبلغاتی ، ادیت ویدیو و کاور ریلز با تیم آرمان رجایی باعث
+        میشه که دیگه زمانتون رو برای تبلغات غیر هدفمند صرف نکنید.
+      </p>
+    </div>
+    <div class="reason-text">
+      <div class="manage-text-position">
+        <h2>صرفه جویی در زمان</h2>
+      </div>
+      <p>
+        ضبط ویدیو تبلغاتی ، ادیت ویدیو و کاور ریلز با تیم آرمان رجایی باعث
+        میشه که دیگه زمانتون رو برای تبلغات غیر هدفمند صرف نکنید.
+      </p>
+    </div>
+    <div class="reason-text">
+      <div class="manage-text-position">
+        <h2>صرفه جویی در زمان</h2>
+      </div>
+      <p>
+        ضبط ویدیو تبلغاتی ، ادیت ویدیو و کاور ریلز با تیم آرمان رجایی باعث
+        میشه که دیگه زمانتون رو برای تبلغات غیر هدفمند صرف نکنید.
+      </p>
+    </div>
+  </div>
+  <!--  baner 2   -->
+  <br /><br />
+  <div class="baner2-position">
+    <div class="baner2-section">
+      <div class="right-baner-section">
+        <img src="Assets/IMG/baner2.png" alt="بنر سایت آرمان رجایی" />
+      </div>
+      <div class="left-baner-section">
+        <img src="Assets/IMG/baner2.png" alt="بنر سایت آرمان رجایی" />
+      </div>
+    </div>
+  </div>
+
+  <br /><br />
+  <!--  product  -->
+
+  <div class="product-header">
+    <div class="text-container">
+      <p class="persian-text">پرفروش ترین محصولات</p>
+      <p class="english-text">Best selling products</p>
+    </div>
+    <i class="fa-solid fa-crown icon"></i>
+  </div>
+
+  <br /><br /><br /><br />
+  <!--  ------   -->
+  <div class="product-section">
+    <button class="scroll-btn prev" aria-label="قبلی">‹</button>
+    <div class="product-background" tabindex="0">
+      <?php
+      global $pdo;
+      $query = 'SELECT * FROM `products` WHERE status = ? ORDER BY id DESC LIMIT 5';
+      $stmt = $pdo->prepare($query);
+      $stmt->execute(['active']);
+      $products = $stmt->fetchAll();
+      foreach ($products as $product) {
+      ?>
+        <div class="product-card-box">
+          <img src="<?= $product['image'] ?>" alt="عکس تستی" />
+          <p class="discribe"><?= $product['mini_title'] ?></p>
+          <h3><?= $product['title'] ?></h3>
+          <div class="product-price">
+            <p class="new-price"><span><?= $product['price'] ?></span> تومان</p>
+            <span class="old-price">100،000</span>
+          </div>
+          <a href="products/index.php?product_id=<?= $product['id'] . $product['title'] ?>" style="text-align: center;">
+            <button class="show-detail-btn">مشاهده جزییات</button>
+          </a>
+        </div>
+      <?php } ?>
+    </div>
+    <button class="scroll-btn next" aria-label="بعدی" id="scroll-btn-next">
+      ›
+    </button>
+  </div>
+  <br /><br /><br />
+  <p style="text-align: center; font-size: 24px; color: white">
+    همیشه همراهتون هستیم
+  </p>
+  <br /><br /><br />
+  <!-- lastest -->
+  <div class="lastest-header">
+    <div class="text-container">
+      <p class="persian-text">جـــدید تــرین نمونه کار ها</p>
+      <p class="english-text">The lastest sample works</p>
+    </div>
+    <i class="fa-solid fa-crown icon"></i>
+  </div>
+  <?php
+  global $pdo;
+  $query = 'SELECT * FROM `portfolios` WHERE status = ? ORDER BY id DESC LIMIT 5';
+  $stmt = $pdo->prepare($query);
+  $stmt->execute(['active']);
+  $portfolios = $stmt->fetchAll();
+  foreach ($portfolios as $portfolio) {
+  ?>
+    <div class="lastest-section">
+      <div class="lastest-background">
+        <div class="lastest-card-box">
+          <img src="<?= $portfolio['image'] ?>" alt="">
+          <h4><?= $portfolio['title'] ?></h4>
+          <hr />
+          <p class="lastest-card-price-unit-1">تـــــــو</p>
+          <p class="lastest-card-price-unit-2">مــــان</p>
+          <h3 class="lastest-card-new-price"><?= $portfolio['new_price'] ?></h3>
+          <span class="lastest-card-old-price"><?= $portfolio['old_price'] ?></span>
+          <h3 class="lastest-card-sold">فروش</h3>
+          <h3 class="lastest-card-sold-num"><?= $portfolio['sales_count'] ?></h3>
+          <h3 class="lastest-card-satisfaction">رضایت</h3>
+          <h3 class="lastest-card-satisfaction-num"><?= $portfolio['satisfaction_percentage'] ?></h3>
+        </div>
+      <?php } ?>
+      </div>
+    </div>
+    <!-- blog -->
+    <div class="lastest-header">
+      <div class="text-container">
+        <p class="persian-text">مــــقالات</p>
+        <p class="english-text">Blog</p>
+      </div>
+      <i class="fa-solid fa-crown icon"></i>
+    </div>
+    <?php
+    global $pdo;
+    $query = 'SELECT * FROM `posts` WHERE status = ? ORDER BY id DESC LIMIT 5';
+    $stmt = $pdo->prepare($query);
+    $stmt->execute(['published']);
+    $posts = $stmt->fetchAll();
+    foreach ($posts as $post) {
+    ?>
+      <div class="posts-section">
+        <div class="posts-background">
+          <div class="posts-card-box">
+            <img src="<?= $post['image'] ?>" alt="عکس تستی" />
+            <h3><?= $post['title'] ?></h3>
+            <p class="posts-discribe"><?= mb_substr($post['content'], 0, 120) ?>...</p>
+            <a href="posts/index.php?posts_id=<?= $post['id'] . $post['title'] ?>" style="text-align: center;" class="posts-show-detail-btn">
+              <!-- <button class="posts-show-detail-btn">مشاهده جزییات</button> -->
+              مشاهده جزییات
+            </a>
+          </div>
+        </div>
+      </div>
+    <?php } ?>
+    <!-- <h3 class="coming-soon">Coming Soon ...</h3> -->
+    <br /><br /><br /><br /><br /><br />
+    <!--  footer  -->
+    <footer style="width: 100%">
+      <div class="up-footer">
+        <span class="contact-us-text">... ارتــبــاط بــــــــا ما</span>
+      </div>
+      <br /><br /><br />
+      <div class="icon-section">
+        <div class="icon-box">
+          <i class="fa-solid fa-headset icon"></i>
+          <p>پشتیبانی</p>
+        </div>
+        <div class="icon-box">
+          <i class="fa-solid fa-chart-simple icon"></i>
+          <p>رشد پیج</p>
+        </div>
+        <div class="icon-box">
+          <i class="fa-solid fa-star icon"></i>
+          <p>کیفیت</p>
+        </div>
+        <div class="icon-box">
+          <i class="fa-solid fa-calendar icon"></i>
+          <p>افتتاحیه</p>
+        </div>
+      </div>
+      <br /><br /><br /><br /><br />
+      <div class="down-footer">
+        <div class="information-section">
+          <hr />
+          <span class="footer-title">دربــــــــاره مــــــــــــــــــا</span>
+          <p class="information">
+            از مشاوره تا ساخت تبلیغات و ادیت ویدیو های شما با پشتیبانی و سابقه
+            ای درخشان همراهتون هستیم تا بهترین هارو برای شما رقم بزنیم.
+          </p>
+        </div>
+      </div>
+      <span class="service-title">خدمات</span>
+      <br />
+      <div class="copy-right-section">
+        <p>
+          تمامی حقوق برای آرمان رجایی محفوظ است و هرگونه کپی برداری بدون اجازه
+          صاحب سایت پیگرد قانونی خواهد داشت. ©
+        </p>
+      </div>
+    </footer>
+    <script src="assets/js/script.js"></script>
+</body>
+
+</html>

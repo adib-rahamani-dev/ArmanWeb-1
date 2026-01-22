@@ -2,6 +2,7 @@
 session_start();
 require '../helper/data-base.php';
 require '../helper/helper-functions.php';
+// require '../auth/check-admin-login.php';
 require '../assets/admin/layouts/sidebar.php';
 ?>
 
@@ -11,7 +12,7 @@ require '../assets/admin/layouts/sidebar.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>پنل مدیریت پیشرفته - آرمان رجایی</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"> -->
     <link rel="stylesheet" href="../assets/Admin/style/style.css">
 </head>
 <body>
@@ -126,12 +127,12 @@ require '../assets/admin/layouts/sidebar.php';
                     </div>
                     <div class="user-dropdown">
                         <button class="user-profile-btn" id="userProfileBtn">
-                            <img src="https://picsum.photos/seed/adminuser/35/35.jpg" alt="کاربر" class="user-avatar">
+                            <img src="" alt="کاربر" class="user-avatar">
                             <span class="user-status online"></span>
                         </button>
                         <div class="user-dropdown-menu" id="userMenu">
                             <div class="user-dropdown-header">
-                                <img src="https://picsum.photos/seed/adminuser/50/50.jpg" alt="کاربر" class="dropdown-user-avatar">
+                                <img src="" alt="کاربر" class="dropdown-user-avatar">
                                 <div class="dropdown-user-info">
                                     <div class="dropdown-user-name">آرمان رجایی</div>
                                     <div class="dropdown-user-email">admin@example.com</div>
@@ -395,7 +396,7 @@ require '../assets/admin/layouts/sidebar.php';
                                         </td>
                                         <td>
                                             <div class="customer-cell">
-                                                <img src="https://picsum.photos/seed/user1/30/30.jpg" alt="مشتری" class="customer-avatar">
+                                                <img src="" alt="مشتری" class="customer-avatar">
                                                 <span class="customer-name">علی احمدی</span>
                                             </div>
                                         </td>
@@ -434,7 +435,7 @@ require '../assets/admin/layouts/sidebar.php';
                                         </td>
                                         <td>
                                             <div class="customer-cell">
-                                                <img src="https://picsum.photos/seed/user2/30/30.jpg" alt="مشتری" class="customer-avatar">
+                                                <img src="" alt="مشتری" class="customer-avatar">
                                                 <span class="customer-name">مریم رضایی</span>
                                             </div>
                                         </td>
@@ -473,7 +474,7 @@ require '../assets/admin/layouts/sidebar.php';
                                         </td>
                                         <td>
                                             <div class="customer-cell">
-                                                <img src="https://picsum.photos/seed/user3/30/30.jpg" alt="مشتری" class="customer-avatar">
+                                                <img src="" alt="مشتری" class="customer-avatar">
                                                 <span class="customer-name">محمد محمدی</span>
                                             </div>
                                         </td>
@@ -786,7 +787,7 @@ require '../assets/admin/layouts/sidebar.php';
     <div class="toast-container" id="toastContainer"></div>
     
     <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
     <script src="../assets/Admin/script/script.js"></script>
 </body>
 </html>

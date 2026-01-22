@@ -35,9 +35,9 @@ function showPremiumToast(message, type = "info", duration = 4000) {
   };
 
   toast.innerHTML = `
-                <i class="fas ${icons[type]} toast-icon"></i>
-                <span>${message}</span>
-            `;
+    <i class="fas ${icons[type]} toast-icon"></i>
+    <span>${message}</span>
+  `;
 
   document.body.appendChild(toast);
 
@@ -73,31 +73,37 @@ togglePassword.addEventListener("click", function () {
   }
 });
 
-// ارسال فرم
-document.getElementById("loginForm").addEventListener("submit", function (e) {
-  e.preventDefault();
+// اعتبارسنجی فرم
+const inputs = document.querySelectorAll(".premium-input");
+inputs.forEach((input) => {
+  input.addEventListener("blur", function () {
+    if (this.value.trim() === "") {
+      this.style.borderColor = "#e74c3c";
+      this.style.boxShadow = "0 0 0 3px rgba(231, 76, 60, 0.1)";
+    } else {
+      this.style.borderColor = "";
+      this.style.boxShadow = "";
+    }
+  });
 
-  const loginBtn = document.getElementById("loginBtn");
-  const originalText = loginBtn.innerHTML;
+  input.addEventListener("focus", function () {
+    this.style.borderColor = "";
+    this.style.boxShadow = "";
+  });
+});
 
-  // حالت لودینگ
-  loginBtn.classList.add("loading");
-  loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> در حال ورود...';
-  loginBtn.disabled = true;
+// افکت parallax برای نورها
+document.addEventListener("mousemove", (e) => {
+  const mouseX = e.clientX / window.innerWidth - 0.5;
+  const mouseY = e.clientY / window.innerHeight - 0.5;
 
-  setTimeout(() => {
-    loginBtn.classList.remove("loading");
-    loginBtn.classList.add("success");
-    loginBtn.innerHTML = '<i class="fas fa-check"></i> ورود موفق';
-
-    showPremiumToast("ورود با موفقیت انجام شد!", "success");
-
-    setTimeout(() => {
-      loginBtn.classList.remove("success");
-      loginBtn.innerHTML = originalText;
-      loginBtn.disabled = false;
-    }, 2000);
-  }, 2000);
+  const glows = document.querySelectorAll(".glow-orb");
+  glows.forEach((glow, index) => {
+    const speed = (index + 1) * 20;
+    const x = mouseX * speed;
+    const y = mouseY * speed;
+    glow.style.transform = `translate(${x}px, ${y}px)`;
+  });
 });
 
 // کلیک شبکه‌های اجتماعی
@@ -131,36 +137,3 @@ document
     e.preventDefault();
     showPremiumToast("صفحه ثبت‌نام در حال ساخت است", "info", 4000);
   });
-
-// اعتبارسنجی فرم
-const inputs = document.querySelectorAll(".premium-input");
-inputs.forEach((input) => {
-  input.addEventListener("blur", function () {
-    if (this.value.trim() === "") {
-      this.style.borderColor = "#e74c3c";
-      this.style.boxShadow = "0 0 0 3px rgba(231, 76, 60, 0.1)";
-    } else {
-      this.style.borderColor = "";
-      this.style.boxShadow = "";
-    }
-  });
-
-  input.addEventListener("focus", function () {
-    this.style.borderColor = "";
-    this.style.boxShadow = "";
-  });
-});
-
-// افکت parallax برای نورها
-document.addEventListener("mousemove", (e) => {
-  const mouseX = e.clientX / window.innerWidth - 0.5;
-  const mouseY = e.clientY / window.innerHeight - 0.5;
-
-  const glows = document.querySelectorAll(".glow-orb");
-  glows.forEach((glow, index) => {
-    const speed = (index + 1) * 20;
-    const x = mouseX * speed;
-    const y = mouseY * speed;
-    glow.style.transform = `translate(${x}px, ${y}px)`;
-  });
-});

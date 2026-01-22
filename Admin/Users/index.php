@@ -11,7 +11,7 @@ require '../../assets/admin/layouts/sidebar.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مدیریت کاربران - پنل مدیریت پیشرفته</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"> -->
     <link rel="stylesheet" href="<?= asset('assets/admin/style/style.css') ?>">
     <link rel="stylesheet" href="<?= asset('assets/admin/style/users.css') ?>">
 </head>
@@ -129,12 +129,12 @@ require '../../assets/admin/layouts/sidebar.php';
                     </div>
                     <div class="user-dropdown">
                         <button class="user-profile-btn" id="userProfileBtn">
-                            <img src="https://picsum.photos/seed/adminuser/35/35.jpg" alt="کاربر" class="user-avatar">
+                            <img src="" alt="کاربر" class="user-avatar">
                             <span class="user-status online"></span>
                         </button>
                         <div class="user-dropdown-menu" id="userMenu">
                             <div class="user-dropdown-header">
-                                <img src="https://picsum.photos/seed/adminuser/50/50.jpg" alt="کاربر" class="dropdown-user-avatar">
+                                <img src="" alt="کاربر" class="dropdown-user-avatar">
                                 <div class="dropdown-user-info">
                                     <div class="dropdown-user-name">آرمان رجایی</div>
                                     <div class="dropdown-user-email">admin@example.com</div>
@@ -384,7 +384,7 @@ require '../../assets/admin/layouts/sidebar.php';
                                         <td><input type="checkbox" class="table-checkbox"></td>
                                         <td>
                                             <div class="customer-cell">
-                                                <img src="<?php echo htmlspecialchars($user['avatar'] ?? 'https://picsum.photos/seed/user/30/30.jpg'); ?>" alt="کاربر" class="customer-avatar">
+                                                <img src="<?php echo htmlspecialchars($user['avatar'] ?? ''); ?>" alt="کاربر" class="customer-avatar">
                                                 <span class="customer-name"><?php echo htmlspecialchars(trim(($user['first_name'] ?? '') . ' ' . ($user['last_name'] ?? '')) ?: ($user['username'] ?? 'کاربر')); ?></span>
                                             </div>
                                         </td>
@@ -474,7 +474,7 @@ require '../../assets/admin/layouts/sidebar.php';
             <div class="modal-body">
                 <div class="user-detail-grid">
                     <div class="user-avatar-section">
-                        <img src="https://picsum.photos/seed/user1/120/120.jpg" alt="کاربر" class="user-avatar-large" id="modalUserAvatar">
+                        <img src=" alt="کاربر" class="user-avatar-large" id="modalUserAvatar">
                         <h4 id="modalUserName">علی احمدی</h4>
                         <span class="status-badge success" id="modalUserStatus">فعال</span>
                         <div class="user-roles" id="modalUserRoles">
@@ -562,7 +562,7 @@ require '../../assets/admin/layouts/sidebar.php';
     </div>
 
     <?php
-    // Server-side handler for creating a new user
+    //  creating a new user
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'create_user') {
         // Basic validation & sanitization
         $first_name = trim($_POST['first_name'] ?? '');
@@ -897,7 +897,7 @@ require '../../assets/admin/layouts/sidebar.php';
     <div class="toast-container" id="toastContainer"></div>
 
     <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
     <script src="<?= asset('assets/admin/script/users.js') ?>"></script>
     <?php if (isset($_SESSION['flash'])): ?>
         <script>

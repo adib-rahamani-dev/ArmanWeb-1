@@ -1,6 +1,37 @@
 <?php
-require '../helper/data-base.php';
-require '../helper/helper-functions.php';
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+session_start();
+require_once '../helper/data-base.php';
+require_once '../helper/helper-functions.php';
+
+$error = ''; // متغیر خطا
+
+if (isset($_POST['submit'])) {
+    echo "Submit button pressed.<br>";
+
+    if (!empty($_POST['username']) && !empty($_POST['password'])) {
+        $query = 'SELECT * FROM users WHERE username = ?';
+        $stmt = $pdo->prepare($query);
+        $stmt->execute([$_POST['username']]);
+        $user = $stmt->fetch();
+
+        if ($user !== false && password_verify($_POST['password'], $user['password'])) {
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['username'] = $user['username'];
+            $_SESSION['role'] = $user['role'];
+            $_SESSION['email'] = $user['email']; // وضعیت کاربر (ادمین یا کاربر معمولی)
+            $_SESSION['first_name'] = $user['first_name'];
+            $_SESSION['last_name'] = $user['last_name'];
+            redirect('index.html');
+            exit(); // اطمینان از اتمام اجرای کد
+        } else {
+            $error = 'نام کاربری یا رمز عبور اشتباه است!';
+        }
+    } else {
+        $error = 'لطفاً تمام فیلدها را پر کنید!';
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
@@ -9,13 +40,11 @@ require '../helper/helper-functions.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ورود - وبسایت آرمان رجایی</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="<?= asset('assets/style/auth/login.css') ?>">
-
-
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"> -->
+    <link rel="stylesheet" href="<?= asset('assets/style/auth/login.css') ?>">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@200;300;400;500;600;700;800;900&display=swap');
-
+        /* @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@200;300;400;500;600;700;800;900&display=swap'); */
         * {
             margin: 0;
             padding: 0;
@@ -31,6 +60,13 @@ require '../helper/helper-functions.php';
             align-items: center;
             position: relative;
             overflow: hidden;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 16px;
+            margin-bottom: 15px;
+            text-align: center;
         }
     </style>
 </head>
@@ -66,14 +102,14 @@ require '../helper/helper-functions.php';
             </div>
 
             <div class="form-content">
-                <form id="loginForm">
+                <form id="loginForm" method="post" action="<?= $_SERVER['PHP_SELF'] ?>">
                     <div class="input-group">
-                        <input type="text" class="premium-input" placeholder="نام کاربری یا ایمیل" required>
+                        <input type="text" class="premium-input" name="username" placeholder="نام کاربری" required>
                         <i class="fas fa-user input-icon"></i>
                     </div>
 
                     <div class="input-group">
-                        <input type="password" class="premium-input" id="password" placeholder="رمز عبور" required>
+                        <input type="password" class="premium-input" name="password" id="password" placeholder="رمز عبور" required>
                         <i class="fas fa-lock input-icon"></i>
                         <button type="button" class="password-toggle" id="togglePassword">
                             <i class="fas fa-eye"></i>
@@ -89,7 +125,7 @@ require '../helper/helper-functions.php';
                         <a href="#" class="forgot-link">فراموشی رمز عبور؟</a>
                     </div>
 
-                    <button type="submit" class="premium-button" id="loginBtn">
+                    <button type="submit" class="premium-button" name="submit" id="loginBtn">
                         <span class="button-wave"></span>
                         ورود به حساب کاربری
                     </button>
@@ -122,8 +158,7 @@ require '../helper/helper-functions.php';
             </div>
         </div>
     </div>
-    <script src="<?= asset('assets/js/auth/login.js') ?>"></script>">
-
+    <script src="<?= asset('assets/js/auth/login.js') ?>"></script>
 </body>
 
 </html>
