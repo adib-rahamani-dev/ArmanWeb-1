@@ -23,7 +23,7 @@ if (isset($_POST['submit'])) {
             $_SESSION['email'] = $user['email']; // وضعیت کاربر (ادمین یا کاربر معمولی)
             $_SESSION['first_name'] = $user['first_name'];
             $_SESSION['last_name'] = $user['last_name'];
-            redirect('index.html');
+            redirect('index.php');
             exit(); // اطمینان از اتمام اجرای کد
         } else {
             $error = 'نام کاربری یا رمز عبور اشتباه است!';

@@ -51,7 +51,7 @@ require_once '../../assets/admin/layouts/sidebar.php';
                         <i class="fas fa-chevron-left breadcrumb-separator"></i>
                         <span class="breadcrumb-item">مدیریت</span>
                         <i class="fas fa-chevron-left breadcrumb-separator"></i>
-                        <span class="breadcrumb-item active">محصولات</span>
+                        <span class="breadcrumb-item active">نمونه کارها</span>
                     </div>
                 </div>
 
@@ -99,22 +99,22 @@ require_once '../../assets/admin/layouts/sidebar.php';
                 <!-- Welcome Section -->
                 <div class="welcome-section fade-in">
                     <div class="welcome-content">
-                        <h1 class="welcome-title">مدیریت محصولات</h1>
-                        <p class="welcome-subtitle">در این بخش می‌توانید محصولات سیستم را مدیریت کنید</p>
+                        <h1 class="welcome-title">مدیریت نمونه کارها</h1>
+                        <p class="welcome-subtitle">در این بخش می‌توانید نمونه کارها را مدیریت کنید</p>
                     </div>
                     <div class="welcome-actions">
-                        <button class="btn btn-primary" id="addNewProductBtn">
+                        <button class="btn btn-primary" id="addNewPortfolioBtn">
                             <i class="fas fa-plus"></i>
-                            <span>افزودن محصول جدید</span>
+                            <span>افزودن نمونه کار جدید</span>
                         </button>
-                        <button class="btn btn-outline" id="exportProductsBtn">
+                        <button class="btn btn-outline" id="exportPortfoliosBtn">
                             <i class="fas fa-download"></i>
                             <span>خروجی اکسل</span>
                         </button>
                     </div>
                 </div>
 
-                <!-- Product Stats -->
+                <!-- Portfolio Stats -->
                 <div class="stats-grid">
                     <div class="stat-card primary fade-in" style="animation-delay: 0.1s;">
                         <div class="stat-card-header">
@@ -129,14 +129,14 @@ require_once '../../assets/admin/layouts/sidebar.php';
                         </div>
                         <div class="stat-card-content">
                             <div class="stat-value">12,543</div>
-                            <div class="stat-title">کل محصولات</div>
+                            <div class="stat-title">کل نمونه کارها</div>
                             <div class="stat-change positive">
                                 <i class="fas fa-arrow-up"></i>
                                 <span>12.5% نسبت به ماه گذشته</span>
                             </div>
                         </div>
                         <div class="stat-chart">
-                            <canvas id="productsChart"></canvas>
+                            <canvas id="portfoliosChart"></canvas>
                         </div>
                     </div>
 
@@ -153,14 +153,14 @@ require_once '../../assets/admin/layouts/sidebar.php';
                         </div>
                         <div class="stat-card-content">
                             <div class="stat-value">8,921</div>
-                            <div class="stat-title">محصولات فعال</div>
+                            <div class="stat-title">نمونه کارهای فعال</div>
                             <div class="stat-change positive">
                                 <i class="fas fa-arrow-up"></i>
-                                <span>8.3% نسبت به ماه 身</span>
+                                <span>8.3% نسبت به ماه گذشته</span>
                             </div>
                         </div>
                         <div class="stat-chart">
-                            <canvas id="activeProductsChart"></canvas>
+                            <canvas id="activePortfoliosChart"></canvas>
                         </div>
                     </div>
 
@@ -177,14 +177,14 @@ require_once '../../assets/admin/layouts/sidebar.php';
                         </div>
                         <div class="stat-card-content">
                             <div class="stat-value">1,245</div>
-                            <div class="stat-title">محصولات جدید (ماه)</div>
+                            <div class="stat-title">نمونه کارهای جدید (ماه)</div>
                             <div class="stat-change negative">
                                 <i class="fas fa-arrow-down"></i>
                                 <span>5.4% نسبت به ماه گذشته</span>
                             </div>
                         </div>
                         <div class="stat-chart">
-                            <canvas id="newProductsChart"></canvas>
+                            <canvas id="newPortfoliosChart"></canvas>
                         </div>
                     </div>
 
@@ -201,27 +201,27 @@ require_once '../../assets/admin/layouts/sidebar.php';
                         </div>
                         <div class="stat-card-content">
                             <div class="stat-value">234</div>
-                            <div class="stat-title">محصولات خالی</div>
+                            <div class="stat-title">نمونه کارهای خالی</div>
                             <div class="stat-change positive">
                                 <i class="fas fa-arrow-up"></i>
                                 <span>2.3% نسبت به ماه گذشته</span>
                             </div>
                         </div>
                         <div class="stat-chart">
-                            <canvas id="outOfStockChart"></canvas>
+                            <canvas id="outOfStockPortfoliosChart"></canvas>
                         </div>
                     </div>
                 </div>
 
-                <!-- Product Import/Export -->
+                <!-- Portfolio Import/Export -->
                 <div class="product-import-export fade-in" style="animation-delay: 0.5s;">
-                    <button class="import-export-btn" id="importProductsBtn">
+                    <button class="import-export-btn" id="importPortfoliosBtn">
                         <i class="fas fa-file-import"></i>
-                        <span>وارد کردن محصولات از فایل</span>
+                        <span>وارد کردن نمونه کارها از فایل</span>
                     </button>
-                    <button class="import-export-btn" id="exportProductsBtn2">
+                    <button class="import-export-btn" id="exportPortfoliosBtn2">
                         <i class="fas fa-file-export"></i>
-                        <span>خروجی گرفتن از محصولات</span>
+                        <span>خروجی گرفتن از نمونه کارها</span>
                     </button>
                     <button class="import-export-btn" id="sendEmailBtn">
                         <i class="fas fa-envelope"></i>
@@ -235,9 +235,9 @@ require_once '../../assets/admin/layouts/sidebar.php';
                         <label>دسته‌بندی:</label>
                         <select class="filter-select" id="categoryFilter">
                             <option value="">همه دسته‌بندی‌ها</option>
-                            <option value="electronics">الکترونیک</option>
-                            <option value="clothing">لباس</option>
-                            <option value="home">خانه</option>
+                            <option value="design">طراحی</option>
+                            <option value="development">توسعه</option>
+                            <option value="marketing">تبلیغات</option>
                         </select>
                     </div>
                     <div class="filter-group">
@@ -262,12 +262,12 @@ require_once '../../assets/admin/layouts/sidebar.php';
                     </div>
                 </div>
 
-                <!-- Products Table -->
+                <!-- Portfolios Table -->
                 <div class="table-card fade-in" style="animation-delay: 0.7s;">
                     <div class="table-card-header">
                         <div class="table-title-section">
-                            <h3 class="table-title">لیست محصولات</h3>
-                            <p class="table-subtitle">مدیریت محصولات ثبت‌شده در سیستم</p>
+                            <h3 class="table-title">لیست نمونه کارها</h3>
+                            <p class="table-subtitle">مدیریت نمونه کارهای ثبت‌شده در سیستم</p>
                         </div>
                         <div class="table-actions">
                             <button class="table-action-btn" id="filterProductsBtn">
@@ -289,9 +289,10 @@ require_once '../../assets/admin/layouts/sidebar.php';
                                     <th>
                                         <input type="checkbox" class="table-checkbox-all">
                                     </th>
-                                    <th>نام محصول</th>
+                                    <th>عنوان نمونه کار</th>
                                     <th>دسته‌بندی</th>
-                                    <th>قیمت</th>
+                                    <th>قیمت قدیمی</th>
+                                    <th>قیمت جدید</th>
                                     <th>وضعیت</th>
                                     <th>تاریخ ثبت</th>
                                     <th>آخرین به‌روزرسانی</th>
@@ -301,36 +302,37 @@ require_once '../../assets/admin/layouts/sidebar.php';
                             <tbody id="productTableBody">
                                 <?php
                                 global $pdo;
-                                $query = 'SELECT products.*, products_categories.name FROM products JOIN products_categories ON products.category_id = products_categories.id';
+                                $query = 'SELECT portfolios.*, products_categories.name AS category_name FROM portfolios LEFT JOIN products_categories ON portfolios.category_id = products_categories.id';
                                 $statement = $pdo->prepare($query);
                                 $statement->execute();
-                                $products = $statement->fetchAll(PDO::FETCH_ASSOC);
-                                foreach ($products as $product):
+                                $portfolios = $statement->fetchAll(PDO::FETCH_ASSOC);
+                                foreach ($portfolios as $portfolio):
                                 ?>
                                     <tr>
-                                        <td><input type="checkbox" class="table-checkbox" data-id="<?= $product['id'] ?>"></td>
-                                        <td><?= htmlspecialchars($product['title']) ?></td>
+                                        <td><input type="checkbox" class="table-checkbox" data-id="<?= $portfolio['id'] ?>"></td>
+                                        <td><?= htmlspecialchars($portfolio['title']) ?></td>
+                                        <td><?= htmlspecialchars($portfolio['category_name']) ?></td>
                                         <!-- دسته بندی -->
-                                        <td><?= htmlspecialchars($product['name']) ?></td>
-                                        <td><?= number_format($product['price'], 0, ',', '.') ?> تومان</td>
+                                        <td><?= number_format($portfolio['old_price'], 0, ',', '.') ?> تومان</td>
+                                        <td><?= number_format($portfolio['new_price'], 0, ',', '.') ?> تومان</td>
                                         <td>
-                                            <span class="status <?= $product['status'] === 'active' ? 'active' : 'inactive' ?>">
-                                                <?= $product['status'] === 'active' ? 'فعال' : 'غیرفعال' ?>
+                                            <span class="status <?= $portfolio['status'] === 'active' ? 'active' : 'inactive' ?>">
+                                                <?= $portfolio['status'] === 'active' ? 'فعال' : 'غیرفعال' ?>
                                             </span>
                                         </td>
-                                        <td><?= date('Y-m-d', strtotime($product['created_at'])) ?></td>
-                                        <td><?= date('Y-m-d', strtotime($product['updated_at'])) ?></td>
+                                        <td><?= date('Y-m-d', strtotime($portfolio['created_at'])) ?></td>
+                                        <td><?= date('Y-m-d', strtotime($portfolio['updated_at'])) ?></td>
                                         <td>
-                                            <button class="btn btn-outline view-btn" data-id="<?= $product['id'] ?>">
+                                            <button class="btn btn-outline view-btn" data-id="<?= $portfolio['id'] ?>">
                                                 <i class="fas fa-eye"></i>
                                             </button>
-                                            <button class="btn btn-outline edit-btn" data-id="<?= $product['id'] ?>">
+                                            <button class="btn btn-outline edit-btn" data-id="<?= $portfolio['id'] ?>">
                                                 <i class="fas fa-edit"></i>
                                             </button>
-                                            <button class="btn btn-outline delete-btn" data-id="<?= $product['id'] ?>">
+                                            <button class="btn btn-outline delete-btn" data-id="<?= $portfolio['id'] ?>">
                                                 <i class="fas fa-trash"></i>
                                             </button>
-                                            <button class="btn btn-outline more-btn" data-id="<?= $product['id'] ?>">
+                                            <button class="btn btn-outline more-btn" data-id="<?= $portfolio['id'] ?>">
                                                 <i class="fas fa-ellipsis-h"></i>
                                             </button>
                                         </td>
@@ -345,19 +347,19 @@ require_once '../../assets/admin/layouts/sidebar.php';
     </div>
 
     <!-- Modals -->
-    <!-- Product Detail Modal -->
+    <!-- Portfolio Detail Modal -->
     <div class="modal" id="productDetailModal">
         <div class="modal-overlay"></div>
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="productDetailTitle">جزئیات محصول</h3>
+                <h3 class="modal-title" id="productDetailTitle">جزئیات نمونه کار</h3>
                 <button class="modal-close" id="closeProductDetailModal">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
             <div class="modal-body">
                 <div id="productDetailContent">
-                    <!-- Product details will be loaded here -->
+                    <!-- Portfolio details will be loaded here -->
                 </div>
             </div>
             <div class="modal-footer">
@@ -367,46 +369,52 @@ require_once '../../assets/admin/layouts/sidebar.php';
                 </button>
                 <button class="btn btn-primary" id="editProductBtn">
                     <i class="fas fa-edit"></i>
-                    <span>ویرایش محصول</span>
+                    <span>ویرایش نمونه کار</span>
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- Add/Edit Product Modal -->
+    <!-- Add/Edit Portfolio Modal -->
     <div class="modal" id="addEditProductModal">
         <div class="modal-overlay"></div>
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="addEditProductModalTitle">افزودن محصول جدید</h3>
+                <h3 class="modal-title" id="addEditProductModalTitle">افزودن نمونه کار جدید</h3>
                 <button class="modal-close" id="closeAddEditProductModal">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
             <div class="modal-body">
                 <form id="productForm" method="post" action="">
-                    <input type="hidden" name="action" id="formAction" value="create_product">
-                    <input type="hidden" name="product_id" id="productIdInput" value="">
+                    <input type="hidden" name="action" id="formAction" value="create_portfolio">
+                    <input type="hidden" name="portfolio_id" id="productIdInput" value="">
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="productName">نام محصول</label>
-                            <input type="text" id="productName" name="name" class="form-input" placeholder="نام محصول" required>
+                            <label for="productName">عنوان نمونه کار</label>
+                            <input type="text" id="productName" name="title" class="form-input" placeholder="عنوان نمونه کار" required>
                         </div>
                         <div class="form-group">
                             <label for="productCategory">دسته‌بندی</label>
                             <select id="productCategory" name="category" class="form-input" required>
                                 <option value="">انتخاب دسته‌بندی</option>
-                                <option value="electronics">الکترونیک</option>
-                                <option value="clothing">لباس</option>
-                                <option value="home">خانه</option>
+                                <option value="design">طراحی</option>
+                                <option value="development">توسعه</option>
+                                <option value="marketing">تبلیغات</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="productPrice">قیمت</label>
-                            <input type="number" id="productPrice" name="price" class="form-input" placeholder="قیمت محصول" required>
+                            <label for="productPrice">قیمت قدیمی</label>
+                            <input type="number" id="productPrice" name="old_price" class="form-input" placeholder="قیمت قدیمی" required>
                         </div>
+                        <div class="form-group">
+                            <label for="productNewPrice">قیمت جدید</label>
+                            <input type="number" id="productNewPrice" name="new_price" class="form-input" placeholder="قیمت جدید" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
                         <div class="form-group">
                             <label for="productStatus">وضعیت</label>
                             <select id="productStatus" name="status" class="form-input" required>
@@ -414,10 +422,18 @@ require_once '../../assets/admin/layouts/sidebar.php';
                                 <option value="inactive">غیرفعال</option>
                             </select>
                         </div>
+                        <div class="form-group">
+                            <label for="productSalesCount">تعداد فروش</label>
+                            <input type="number" id="productSalesCount" name="sales_count" class="form-input" placeholder="تعداد فروش" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="productSatisfaction">نرخ رضایت (درصد)</label>
+                        <input type="number" id="productSatisfaction" name="satisfaction_percentage" class="form-input" placeholder="نرخ رضایت" required>
                     </div>
                     <div class="form-group">
                         <label for="productDescription">توضیحات</label>
-                        <textarea id="productDescription" name="description" class="form-input" rows="4" placeholder="توضیحات محصول"></textarea>
+                        <textarea id="productDescription" name="description" class="form-input" rows="4" placeholder="توضیحات نمونه کار"></textarea>
                     </div>
                 </form>
             </div>
@@ -428,49 +444,49 @@ require_once '../../assets/admin/layouts/sidebar.php';
                 </button>
                 <button class="btn btn-primary" id="saveProductBtn" type="submit" form="productForm">
                     <i class="fas fa-save"></i>
-                    <span>ذخیره محصول</span>
+                    <span>ذخیره نمونه کار</span>
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- Delete Product Modal -->
+    <!-- Delete Portfolio Modal -->
     <div class="modal" id="deleteProductModal">
         <div class="modal-overlay">
-            </意图
-                <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title">حذف محصول</h3>
-                <button class="modal-close" id="closeDeleteProductModal">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="alert alert-warning">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    <div>
-                        <h4>آیا از حذف این محصول اطمینان دارید؟</h4>
-                        <p>با حذف این محصول، تمام اطلاعات مربوط به او از سیستم حذف خواهد شد. این عملیات غیرقابل بازگشت است.</p>
-                    </div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">حذف نمونه کار</h3>
+                    <button class="modal-close" id="closeDeleteProductModal">
+                        <i class="fas fa-times"></i>
+                    </button>
                 </div>
-                <form id="deleteProductForm" method="post" action="">
-                    <input type="hidden" name="action" value="delete_product">
-                    <input type="hidden" name="product_id" id="deleteProductId" value="">
-                    <div class="form-group">
-                        <label>دلیل حذف (اختیاری)</label>
-                        <textarea id="deleteReason" name="delete_reason" class="form-input" rows="3" placeholder="دلیل حذف محصول را وارد کنید"></textarea>
+                <div class="modal-body">
+                    <div class="alert alert-warning">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <div>
+                            <h4>آیا از حذف این نمونه کار اطمینان دارید؟</h4>
+                            <p>با حذف این نمونه کار، تمام اطلاعات مربوط به او از سیستم حذف خواهد شد. این عملیات غیرقابل بازگشت است.</p>
+                        </div>
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-outline" id="closeDeleteProductModalBtn">
-                    <i class="fas fa-times"></i>
-                    <span>انصراف</span>
-                </button>
-                <button class="btn btn-danger" id="confirmDeleteProductBtn" type="submit" form="deleteProductForm">
-                    <i class="fas fa-trash"></i>
-                    <span>حذف محصول</span>
-                </button>
+                    <form id="deleteProductForm" method="post" action="">
+                        <input type="hidden" name="action" value="delete_portfolio">
+                        <input type="hidden" name="portfolio_id" id="deleteProductId" value="">
+                        <div class="form-group">
+                            <label>دلیل حذف (اختیاری)</label>
+                            <textarea id="deleteReason" name="delete_reason" class="form-input" rows="3" placeholder="دلیل حذف نمونه کار را وارد کنید"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-outline" id="closeDeleteProductModalBtn">
+                        <i class="fas fa-times"></i>
+                        <span>انصراف</span>
+                    </button>
+                    <button class="btn btn-danger" id="confirmDeleteProductBtn" type="submit" form="deleteProductForm">
+                        <i class="fas fa-trash"></i>
+                        <span>حذف نمونه کار</span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -479,7 +495,7 @@ require_once '../../assets/admin/layouts/sidebar.php';
     <div class="toast-container" id="toastContainer"></div>
 
     <!-- Scripts -->
-    <script src="<?= asset('assets/admin/script/products.js') ?>"></script>
+    <script src="<?= asset('assets/admin/script/portfolios.js') ?>"></script>
     <?php if (isset($_SESSION['flash'])): ?>
         <script>
             document.addEventListener('DOMContentLoaded', function() {

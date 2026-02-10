@@ -12,7 +12,7 @@ require '../assets/admin/layouts/sidebar.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>پنل مدیریت پیشرفته - آرمان رجایی</title>
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="../assets/Admin/style/style.css">
 </head>
 <body>
@@ -787,7 +787,7 @@ require '../assets/admin/layouts/sidebar.php';
     <div class="toast-container" id="toastContainer"></div>
     
     <!-- Scripts -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="../assets/Admin/script/script.js"></script>
 </body>
 </html>

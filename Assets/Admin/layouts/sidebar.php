@@ -62,14 +62,14 @@
                         </div>
                     </div>
                     <div class="menu-item">
-                        <a href="#" class="menu-link" id="productsMenuToggle">
+                        <a href="<?= url('admin/products') ?>" class="menu-link menu-link <?= strpos(strtolower($_SERVER['REQUEST_URI']), '/admin/products') !== false ? 'active' : '' ?>" id="productsMenuToggle">
                             <i class="fas fa-box menu-icon"></i>
                             <span class="menu-text">محصولات</span>
                             <span class="menu-badge">456</span>
                             <i class="fas fa-chevron-down menu-icon chevron"></i>
                         </a>
                         <div class="submenu" id="productsSubmenu">
-                            <a href="#" class="menu-link">
+                            <a href="<?= url('admin/products') ?>" class="menu-link <?= strpos(strtolower($_SERVER['REQUEST_URI']), '/admin/products') !== false ? 'active' : '' ?>">
                                 <i class="fas fa-th-large menu-icon"></i>
                                 <span class="menu-text">همه محصولات</span>
                             </a>
@@ -105,13 +105,13 @@
                 <div class="menu-section">
                     <div class="menu-title">محتوا</div>
                     <div class="menu-item">
-                        <a href="#" class="menu-link" id="blogMenuToggle">
+                        <a href="<?= url('admin/posts') ?>" class="menu-link <?= strpos(strtolower($_SERVER['REQUEST_URI']), '/admin/posts') !== false ? 'active' : '' ?>" id="blogMenuToggle">
                             <i class="fas fa-blog menu-icon"></i>
-                            <span class="menu-text">وبلاگ</span>
+                            <span class="menu-text <?= strpos(strtolower($_SERVER['REQUEST_URI']), '/admin/posts') !== false ? 'active' : '' ?>">وبلاگ</span>
                             <i class="fas fa-chevron-down menu-icon chevron"></i>
                         </a>
                         <div class="submenu" id="blogSubmenu">
-                            <a href="#" class="menu-link">
+                            <a href="<?= url('admin/posts') ?>" class="menu-link <?= strpos(strtolower($_SERVER['REQUEST_URI']), '/admin/posts') !== false ? 'active' : '' ?>">
                                 <i class="fas fa-newspaper menu-icon"></i>
                                 <span class="menu-text">همه مقالات</span>
                             </a>
@@ -126,9 +126,9 @@
                         </div>
                     </div>
                     <div class="menu-item">
-                        <a href="#" class="menu-link" data-page="media">
+                        <a href="<?= url('admin/portfolios') ?>" class="menu-link <?= strpos(strtolower($_SERVER['REQUEST_URI']), '/admin/portfolios/') !== false ? 'active' : '' ?>" data-page="media">
                             <i class="fas fa-photo-video menu-icon"></i>
-                            <span class="menu-text">رسانه</span>
+                            <span class="menu-text">نمونه کار</span>
                         </a>
                     </div>
                     <div class="menu-item">

@@ -2,7 +2,7 @@
 require 'helper/data-base.php';
 require 'helper/helper-functions.php';
 
-?>
+?>  
 <!DOCTYPE html>
 <html lang="fa">
 
@@ -12,10 +12,10 @@ require 'helper/helper-functions.php';
   <title>وبسایت آرمان رجایی</title>
   <link rel="stylesheet" href="Assets/style/style.css" />
   <link rel="stylesheet" href="Assets/style/main.css" />
-  <!-- <link
+  <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-    /> -->
+    />
 </head>
 
 <body>
@@ -24,7 +24,15 @@ require 'helper/helper-functions.php';
     <div class="box-btn">
       <button class="card-btn"><i class="fa-solid fa-cart-shopping"></i></button>
       <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
-      <button class="register-btn"><a href="Auth/login.php" style="text-decoration: none; color: white;">ورود | عضویت</a></button>
+      <?php
+      session_start(); 
+      if (isset($_SESSION['username'])): 
+      ?>
+        <button class="register-btn"><a href="dashboard.php" style="text-decoration: none; color: white;">پنل کاربری</a></button>
+      <?php else: 
+      ?>
+        <button class="register-btn"><a href="Auth/login.php" style="text-decoration: none; color: white;">ورود | عضویت</a></button>
+      <?php endif; ?>
     </div>
     <div></div>
     <div class="right-section">
