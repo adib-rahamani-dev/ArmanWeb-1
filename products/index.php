@@ -12,10 +12,10 @@ require_once '../helper/helper-functions.php';
 
   <link rel="stylesheet" href="../Assets/style/sample_work.css" />
   <link rel="stylesheet" href="../Assets/style/main.css" />
-  <!-- <link
+  <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-    /> -->
+    />
 </head>
 
 <body>
@@ -51,7 +51,7 @@ require_once '../helper/helper-functions.php';
           </div>
         </div>
         <div class="image-wrapper">
-          <img src="https://picsum.photos/1920/1080" alt="عکس محصول" />
+          <img src="<?= asset($product['image']) ?>"alt="عکس محصول" />
         </div>
       </section>
       <div class="information">
